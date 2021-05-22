@@ -1,6 +1,6 @@
 import os
 import pygame
-
+from haversine import haversine, Unit
 
 def get_screen_dimensions():
     """Returns dimensions in pixels of the current screen"""
@@ -26,3 +26,9 @@ def assign_x_y_from_lat_lon(lat, lng):
     x_coordinate = int((1 - lng_percent) * screen_width)
     y_coordinate = int((1 - lat_percent) * screen_height)
     return x_coordinate, y_coordinate
+
+def get_distance(lat, lng):
+    base = (float(os.environ['CURRENT_LAT']), float(os.environ['CURRENT_LON']))
+    dist = haversine(base, (lat, lng), unit=Unit.NAUTICAL_MILES)
+    print(dist)
+    return dist

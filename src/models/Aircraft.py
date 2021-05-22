@@ -8,6 +8,7 @@ class Aircraft():
     def __init__(self, aircraft_dict):
         self.normalize_inputs(aircraft_dict)
         if self.should_draw:
+            self.dist = helpers.get_distance(self.lat, self.lng)
             self.create_sprite()
             x_coordinate, y_coordinate = helpers.assign_x_y_from_lat_lon(self.lat, self.lng)
             self.x_coordinate = x_coordinate
@@ -72,8 +73,8 @@ class Aircraft():
 
     def get_pretty_altitude(self):
         if self.alt:
-            return f'{self.alt:,} ft'
-        return 'Unknown Alt'
+            return f'{int(self.alt/100)}'
+        return 'Unk'
 
     def update_position(self, lat, lng):
         """Updates the position of the aircraft"""
@@ -88,4 +89,8 @@ class Aircraft():
                 screen.blit(
                     self.sprite.text_surface,
                     (self.x_coordinate + x_pixel_buffer, self.y_coordinate)
+                )
+                screen.blit(
+                    self.sprite.text_surface2,
+                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + 20)
                 )

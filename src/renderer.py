@@ -1,5 +1,4 @@
 import os
-import time
 import pygame
 import decoder
 from models.Aircraft import Aircraft
@@ -11,15 +10,19 @@ def get_screen():
     """Returns the screen object"""
     pygame.init()
     pygame.font.init()
-    return pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    return pygame.display.set_mode((1000,1000), pygame.RESIZABLE)
 
 
 def draw_my_location(screen):
     """Draws the current user's location"""
     lat = float(os.environ.get('CURRENT_LAT'))
     lng = float(os.environ.get('CURRENT_LON'))
-    b = BaseStation(lat, lng)
+    rrdist = float(os.environ.get('RR_DIST'))
+    b = BaseStation(lat, lng, rrdist)
     b.draw(screen)
+
+    for radius in b.rr:
+        pygame.draw.circle(screen, (84, 170, 232), (b.x_coordinate, b.y_coordinate), radius, 2)
 
 
 def display_aircraft_los(screen):
