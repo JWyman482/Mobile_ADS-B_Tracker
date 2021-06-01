@@ -1,5 +1,6 @@
 from sprites.AircraftSprite import AircraftSprite
 import helpers
+from settings import setting
 
 
 class Aircraft():
@@ -9,6 +10,7 @@ class Aircraft():
         self.normalize_inputs(aircraft_dict)
         if self.should_draw:
             self.dist = helpers.get_distance(self.lat, self.lng)
+            self.type = aircraft_dict.get('type')
             self.create_sprite()
             x_coordinate, y_coordinate = helpers.assign_x_y_from_lat_lon(self.lat, self.lng)
             self.x_coordinate = x_coordinate
@@ -74,7 +76,7 @@ class Aircraft():
     def get_pretty_altitude(self):
         if self.alt:
             return f'{int(self.alt/100)}'
-        return 'Unk'
+        return 'XXX'
 
     def update_position(self, lat, lng):
         """Updates the position of the aircraft"""
@@ -92,5 +94,9 @@ class Aircraft():
                 )
                 screen.blit(
                     self.sprite.text_surface2,
-                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + 20)
+                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + setting["ACFT_FONT"])
+                )
+                screen.blit(
+                    self.sprite.text_surface3,
+                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + (2*setting["ACFT_FONT"]))
                 )

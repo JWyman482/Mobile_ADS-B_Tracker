@@ -1,10 +1,9 @@
-import os
 import pygame
 import decoder
+from settings import airports
 from models.Aircraft import Aircraft
 from models.BaseStation import BaseStation
 from models.AlertMessage import AlertMessage
-
 
 def get_screen():
     """Returns the screen object"""
@@ -15,14 +14,12 @@ def get_screen():
 
 def draw_my_location(screen):
     """Draws the current user's location"""
-    lat = float(os.environ.get('CURRENT_LAT'))
-    lng = float(os.environ.get('CURRENT_LON'))
-    rrdist = float(os.environ.get('RR_DIST'))
-    b = BaseStation(lat, lng, rrdist)
-    b.draw(screen)
-
-    for radius in b.rr:
-        pygame.draw.circle(screen, (84, 170, 232), (b.x_coordinate, b.y_coordinate), radius, 2)
+    for airport in airports:
+        b = BaseStation(airport)
+        b.draw(screen)
+        if airport["Name"] == "Home":
+            for radius in b.rr:
+                pygame.draw.circle(screen, (84, 170, 232), (b.x_coordinate, b.y_coordinate), radius, 2)
 
 
 def display_aircraft_los(screen):
@@ -44,6 +41,8 @@ def run_screen():
                 running = False
         screen.fill((0, 0, 0))
         for aircraft_json in decoder.get_aircraft():
+            acft_type = decoder.get_aircraft_type(aircraft_json["hex"])
+            aircraft_json["type"] = acft_type
             a = Aircraft(aircraft_json)
             a.draw(screen)
         draw_my_location(screen)
