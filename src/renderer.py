@@ -37,8 +37,8 @@ def run_screen():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if event.type == pygame.KEYDOWN:
-                running = False
+            # if event.type == pygame.KEYDOWN:
+                # running = False
         screen.fill((0, 0, 0))
         for aircraft_json in decoder.get_aircraft():
             acft_type = decoder.get_aircraft_type(aircraft_json["hex"])

@@ -9,7 +9,7 @@ current_aircraft = []
 def get_data_directory_path():
     """Return the path of the data directory"""
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    return os.path.join(dir_path, '../data')
+    return os.path.join(dir_path, '../../dump1090/public_html/data')
 
 def clean_up_directory():
     """Cleans up the JSON directory"""
