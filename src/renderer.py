@@ -1,6 +1,7 @@
 import pygame
 import decoder
 from settings import airports
+from settings import setting
 from models.Aircraft import Aircraft
 from models.BaseStation import BaseStation
 from models.AlertMessage import AlertMessage
@@ -41,6 +42,7 @@ def run_screen():
                 # running = False
         screen.fill((0, 0, 0))
         for aircraft_json in decoder.get_aircraft():
+
             acft_type = decoder.get_aircraft_type(aircraft_json["hex"])
             aircraft_json["type"] = acft_type
             a = Aircraft(aircraft_json)

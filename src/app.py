@@ -3,6 +3,7 @@ from settings import setting
 
 def main():
     """Main entrypoint for application"""
+    print("I'm working dammit")
     choice = input("Defaults (y/n)")
     if choice.lower() != "y":
         setting["RANGE_NM"] = int(input("Range: "))

@@ -31,7 +31,7 @@ class Aircraft():
         lat_retrieved = aircraft_dict.get('lat')
         lng_retrieved = aircraft_dict.get('lon')
         squawk_retrieved = aircraft_dict.get('squawk')
-        alt_retrieved = aircraft_dict.get('alt_geom')
+        alt_retrieved = aircraft_dict.get('alt_baro')
         track_retrieved = aircraft_dict.get('track')
 
         if name_retrieved:
@@ -39,7 +39,7 @@ class Aircraft():
         if lat_retrieved:
             self.lat = float(lat_retrieved)
         else:
-            self.sould_draw = False
+            self.should_draw = False
         if lng_retrieved:
             self.lng = float(lng_retrieved)
         else:
@@ -53,7 +53,10 @@ class Aircraft():
             if type(alt_retrieved) == tuple:
                 self.alt = int(alt_retrieved[0])
             else:
-                self.alt = int(alt_retrieved)
+                if alt_retrieved == "ground":
+                    self.alt = 0
+                else: 
+                    self.alt = int(alt_retrieved)
         if track_retrieved:
             if type(track_retrieved) == tuple:
                 self.track = int(track_retrieved[0])
@@ -75,7 +78,10 @@ class Aircraft():
 
     def get_pretty_altitude(self):
         if self.alt:
-            return f'{int(self.alt/100)}'
+            if self.alt == "ground":
+                self.alt = 0 
+            pretty_alt = int(self.alt/100)
+            return f'{pretty_alt}'
         return 'XXX'
 
     def update_position(self, lat, lng):
