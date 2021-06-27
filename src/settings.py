@@ -18,32 +18,16 @@ setting = {
 airports = [
     {
         "Name": "Home",
+        "Type": "Airport",
         "LAT": LAT,
         "LON": LON,
         "RWY": 90
     },
     {
         "Name": "SEA",
+        "Type": "Airport",
         "LAT": 47.45193,
         "LON": -122.30952,
         "RWY": 160
-    },
-    {
-        "Name": "ARVEE",
-        "LAT": 43.54535,
-        "LON": -90.25401,
-        "RWY": 290
-    },
-    {
-        "Name": "EMBEE",
-        "LAT": 43.56121,
-        "LON": -90.34123,
-        "RWY": 290
-    },
-#    {
-#        "Name": "CLARK",
-#        "LAT": 43.56873,
-#        "LON": -90.38286,
-#        "RWY": 290
-#    },
+    }
 ]
