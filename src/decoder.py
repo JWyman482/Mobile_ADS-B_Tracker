@@ -20,7 +20,7 @@ def clean_up_directory():
 def get_aircraft():
     """Retrieving aircraft from dump1090 json output"""
     clean_up_directory()
-    print('getting aircraft at {}'.format(str(int(time.time()))))
+#    print('getting aircraft at {}'.format(str(int(time.time()))))
     json_path = os.path.join(get_data_directory_path(), 'aircraft.json')
     with open(json_path) as file:
         aircraft_json = json.loads(file.read())

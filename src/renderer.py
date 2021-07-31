@@ -6,6 +6,7 @@ from models.Aircraft import Aircraft
 from models.BaseStation import BaseStation
 from models.AlertMessage import AlertMessage
 
+
 def get_screen():
     """Returns the screen object"""
     pygame.init()
@@ -19,8 +20,8 @@ def draw_my_location(screen):
         b = BaseStation(airport)
         b.draw(screen)
         if airport["Name"] == "Home":
-            for radius in b.rr:
-                pygame.draw.circle(screen, (84, 170, 232), (b.x_coordinate, b.y_coordinate), radius, 2)
+           for radius in b.rr:
+               pygame.draw.circle(screen, (84, 170, 232), (b.x_coordinate, b.y_coordinate), radius, 2)
 
 
 def display_aircraft_los(screen):
@@ -38,7 +39,15 @@ def run_screen():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            # if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    setting["RANGE_NM"] = setting["RANGE_NM"] + 1
+                if event.key == pygame.K_DOWN:
+                    setting["RANGE_NM"] = setting["RANGE_NM"] - 1
+                if event.key == pygame.K_LEFT:
+                    setting["RR_DIST"] = setting["RR_DIST"] - 1
+                if event.key == pygame.K_RIGHT:
+                    setting["RR_DIST"] = setting["RR_DIST"] + 1
                 # running = False
         screen.fill((0, 0, 0))
         for aircraft_json in decoder.get_aircraft():
