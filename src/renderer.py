@@ -23,17 +23,11 @@ def draw_my_location(screen):
            for radius in b.rr:
                pygame.draw.circle(screen, (84, 170, 232), (b.x_coordinate, b.y_coordinate), radius, 2)
 
-
-def display_aircraft_los(screen):
-    """Draws LOS aircraft on screen"""
-    a = AlertMessage('LOS - ADS-B Aircraft')
-    a.draw(screen)
-
-
 def run_screen():
     """Runs the screen"""
     screen = get_screen()
     running = True
+    decoder.connectToServer(setting['HOST'], setting['PORT'])
 
     while running:
         for event in pygame.event.get():
@@ -50,13 +44,11 @@ def run_screen():
                     setting["RR_DIST"] = setting["RR_DIST"] + 1
                 # running = False
         screen.fill((0, 0, 0))
-        for aircraft_json in decoder.get_aircraft():
-
-            # acft_type = decoder.get_aircraft_type(aircraft_json["hex"])
-            # aircraft_json["type"] = acft_type
-            a = Aircraft(aircraft_json)
-            a.draw(screen)
         draw_my_location(screen)
-        display_aircraft_los(screen)
+        aircraftList = decoder.get_aircraft(setting['HDR_SIZE'], setting['TIMEOUT'])
+        for aircraft in aircraftList:
+            a = Aircraft(aircraftList[aircraft])
+            a.draw(screen)
+        
         pygame.display.flip()
         pygame.time.wait(1000)

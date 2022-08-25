@@ -1,56 +1,90 @@
-import os
-import json
 import gps
+import socket
+from time import time
 
-current_aircraft = []
+current_aircraft = {}
 
 
-def get_data_directory_path():
-    """Return the path of the data directory"""
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    # return os.path.join(dir_path, '../../dump1090/public_html/data')
-    return os.path.join(dir_path, '/data')
+# Create the client socket
+s = socket.socket()
 
-# def clean_up_directory():
-#     """Cleans up the JSON directory"""
-#     for file_name in os.listdir(get_data_directory_path()):
-#         if file_name.startswith('history_'):
-#             os.remove(os.path.join(get_data_directory_path(), file_name))
+def connectToServer(HOST, PORT):
+    # Connect to receiver (server)
+    print(f"[+] Connecting to {HOST}:{PORT}")
+    s.connect((HOST, PORT))
+    print("[+] Connected.")
 
-def get_aircraft():
-    """Retrieving aircraft from dump1090 json output"""
-    # clean_up_directory()
-#    print('getting aircraft at {}'.format(str(int(time.time()))))
-    # json_path = os.path.join(get_data_directory_path(), 'aircraft.json')
-    # with open(json_path) as file:
-    if os.path.getsize("aircraft.json") == 0:
-        return {}
-    with open("aircraft.json") as file:
-        aircraft_json = json.loads(file.read())
-    # print('{} found'.format(len(aircraft_json['aircraft'])))
-    return aircraft_json['aircraft']
+# Delete timed out aircraft
+def time_out_acft(TIMEOUT):
+    timeNow = time()
+    delList = []
+    for acft in current_aircraft:
+        if timeNow - current_aircraft[acft]["Count"] > float(TIMEOUT):
+            delList.append(acft)
+    for acft in delList:
+        current_aircraft.pop(acft)
 
-# def get_aircraft_type(icao_hex):
-#     dir_path = os.path.dirname(os.path.realpath(__file__))
-#     json_dir_path = os.path.join(dir_path, '../../dump1090/public_html/db')
-#     return request_from_db(icao_hex, 1, json_dir_path)
+def get_aircraft(HDR_SIZE, TIMEOUT):
+    # orig_message will be multiple acft in base-station format
+    # The first split splits the msgs into individual messages
+    orig_message = s.recv(HDR_SIZE).decode().split('\n')
+
+    # Split below breaks down the pieces of each message.
+    for acft in orig_message:
+        acft = acft.split(',')
+        if len(acft) != 22:
+            continue
+
+        if acft[0] != "MSG":
+            continue
+        
+        # ICAO
+        if acft[4] not in current_aircraft:
+            current_aircraft[acft[4]] = {"Callsign": "", "Count": 0.0, "Alt": "", "Lat": "", "Lon": "", "Squawk": ""}
+            current_aircraft[acft[4]]["Count"] = time()
+        
+        # Callsign
+        if acft[10] != '' and acft[10] != current_aircraft[acft[4]]["Callsign"]:
+            current_aircraft[acft[4]]["Callsign"] = acft[10]
+            current_aircraft[acft[4]]["Count"] = time()
+        
+        # Altitude
+        if acft[11] != '' and acft[11] != current_aircraft[acft[4]]["Alt"]:
+            current_aircraft[acft[4]]["Alt"] = acft[11]
+            current_aircraft[acft[4]]["Count"] = time()
+
+        # Lat/Lon - we assume if we have one we have both
+        if acft[14] != '' and (acft[14] != current_aircraft[acft[4]]["Lat"] or acft[15] != current_aircraft[acft[4]]["Lon"]):
+            current_aircraft[acft[4]]["Lat"] = acft[14]
+            current_aircraft[acft[4]]["Lon"] = acft[15]
+            current_aircraft[acft[4]]["Count"] = time()
     
-# def request_from_db(icao, level, path):
-#     icao = icao.upper()
-#     bkey = icao[:level]
-#     dkey = icao[level:]
-#     json_path = os.path.join(path, bkey + '.json')
+        # Squawk
+        if acft[17] != '' and acft[17] != current_aircraft[acft[4]]["Squawk"]:
+            current_aircraft[acft[4]]["Squawk"] = acft[17]
+            current_aircraft[acft[4]]["Count"] = time()
 
-#     with open(json_path) as file:
-#         type_json = json.loads(file.read())
-#     if dkey in type_json:
-#         return type_json[dkey].get('t')
-#     elif "children" in type_json:
-#         subkey = bkey + dkey[:1]
-#         if subkey in type_json['children']:
-#             return request_from_db(icao, level + 1, path)
-#         return "Unk"
-#     return "Unk"
+    time_out_acft(TIMEOUT)
+    """
+    current_aircraft structure:
+    {
+        "ICAO1": {
+            "Callsign": "balls1",
+            "Count": 0.0,
+            "Alt": "9500",
+            "Lat": "42.23423",
+            "Lon": "-122.12321"
+        },
+        "ICAO2": {
+            "Callsign": "balls2",
+            "Count": 0.0,
+            "Alt": "9500",
+            "Lat": "42.23423",
+            "Lon": "-122.12321"
+        }
+    }
+    """
+    return current_aircraft
 
 def get_lat_lon():
     # Listen on port 2947 (gpsd) of localhost

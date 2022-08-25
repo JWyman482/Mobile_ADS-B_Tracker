@@ -1,4 +1,3 @@
-import os
 import pygame
 from settings import setting
 from haversine import haversine, Unit
@@ -40,16 +39,6 @@ def get_bounding_box_coordinates():
         'lon_min': lon_min,
     }
 
-
-# def assign_x_y_from_lat_lon(lat, lng):
-#     """Assign x and y coordinates of the sprite from lat and long"""
-#     screen_height, screen_width = get_screen_dimensions()
-#     bb_coordinates = get_bounding_box_coordinates()
-#     lat_percent = (lat - bb_coordinates['lat_min']) / (bb_coordinates['lat_max'] - bb_coordinates['lat_min'])
-#     lng_percent = (lng - bb_coordinates['lon_min']) / (bb_coordinates['lon_max'] - bb_coordinates['lon_min'])
-#     x_coordinate = int((1 - lng_percent) * screen_width)
-#     y_coordinate = int((1 - lat_percent) * screen_height)
-#     return x_coordinate, y_coordinate
 
 def assign_x_y_from_lat_lon(lat, lng):
     # Get base coords and base degrees.

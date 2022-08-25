@@ -1,4 +1,4 @@
-import decoder
+# import decoder # For GPS use
 from haversine import haversine, Unit
 
 
@@ -17,7 +17,11 @@ setting = {
     "LON": LON,
     "NM_PER_DEGREE_LAT": distLat,
     "NM_PER_DEGREE_LON": distLon,
-    "ALT_FILTER": 60
+    "ALT_FILTER": 60,
+    "HOST": "192.168.1.37",
+    "PORT": 30003,
+    "HDR_SIZE": 4096,
+    "TIMEOUT": 60
 }
 
 airports = [

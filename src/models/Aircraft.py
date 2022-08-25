@@ -24,15 +24,15 @@ class Aircraft():
         self.lng = None
         self.squawk = None
         self.alt = None
-        self.track = None
+        # self.track = None
         self.should_draw = True
 
-        name_retrieved = aircraft_dict.get('flight')
-        lat_retrieved = aircraft_dict.get('lat')
-        lng_retrieved = aircraft_dict.get('lon')
-        squawk_retrieved = aircraft_dict.get('squawk')
-        alt_retrieved = aircraft_dict.get('alt_baro')
-        track_retrieved = aircraft_dict.get('track')
+        name_retrieved = aircraft_dict.get('Callsign')
+        lat_retrieved = aircraft_dict.get('Lat')
+        lng_retrieved = aircraft_dict.get('Lon')
+        squawk_retrieved = aircraft_dict.get('Squawk')
+        alt_retrieved = aircraft_dict.get('Alt')
+        # track_retrieved = aircraft_dict.get('track')
 
         if name_retrieved:
             self.name = name_retrieved.strip()
@@ -53,15 +53,15 @@ class Aircraft():
             if type(alt_retrieved) == tuple:
                 self.alt = int(alt_retrieved[0])
             else:
-                if alt_retrieved == "ground":
+                if alt_retrieved == "grnd":
                     self.alt = 0
                 else: 
                     self.alt = int(alt_retrieved)
-        if track_retrieved:
-            if type(track_retrieved) == tuple:
-                self.track = int(track_retrieved[0])
-            else:
-                self.track = int(track_retrieved)
+        # if track_retrieved:
+        #     if type(track_retrieved) == tuple:
+        #         self.track = int(track_retrieved[0])
+        #     else:
+        #         self.track = int(track_retrieved)
 
     def check_aircraft_bounds(self):
         """Determines if the aircraft is within reporting bounds"""

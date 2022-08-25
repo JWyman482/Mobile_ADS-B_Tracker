@@ -11,6 +11,5 @@ def main():
         setting["BASE_FONT"] = int(input("Base Font Size: "))
     renderer.run_screen()
 
-
 if __name__ == '__main__':
     main()

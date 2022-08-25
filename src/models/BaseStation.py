@@ -10,7 +10,7 @@ class BaseStation():
         self.lat = airport["LAT"]
         self.lon = airport["LON"]
         if self.name == "Home":
-            print("in Home")
+            # print("in Home")
             screen_h, screen_w = helpers.get_screen_dimensions()
             x_coordinate = screen_w / 2
             y_coordinate = screen_h / 2
