@@ -52,8 +52,8 @@ def run_screen():
         screen.fill((0, 0, 0))
         for aircraft_json in decoder.get_aircraft():
 
-            acft_type = decoder.get_aircraft_type(aircraft_json["hex"])
-            aircraft_json["type"] = acft_type
+            # acft_type = decoder.get_aircraft_type(aircraft_json["hex"])
+            # aircraft_json["type"] = acft_type
             a = Aircraft(aircraft_json)
             a.draw(screen)
         draw_my_location(screen)
