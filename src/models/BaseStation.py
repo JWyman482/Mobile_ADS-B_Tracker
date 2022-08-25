@@ -12,8 +12,8 @@ class BaseStation():
         if self.name == "Home":
             # print("in Home")
             screen_h, screen_w = helpers.get_screen_dimensions()
-            x_coordinate = screen_w / 2
-            y_coordinate = screen_h / 2
+            x_coordinate = int(screen_w / 2)
+            y_coordinate = int(screen_h / 2)
             self.rr = self.create_rr(setting["RR_DIST"])
         else: 
             x_coordinate, y_coordinate = helpers.assign_x_y_from_lat_lon(self.lat, self.lon)
