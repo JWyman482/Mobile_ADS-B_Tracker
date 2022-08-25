@@ -26,7 +26,6 @@ def run_screen():
     screen = get_screen()
     running = True
     decoder.connectToServer(setting['HOST'], setting['PORT'])
-    setting["Filter"] = 400
 
     while running:
         for event in pygame.event.get():
@@ -42,9 +41,9 @@ def run_screen():
                 if event.key == pygame.K_RIGHT:
                     setting["RR_DIST"] = setting["RR_DIST"] + 1
                 if event.key == pygame.K_f:
-                    setting["Filter"] = setting['Filter'] - 20
+                    setting["ALT_FILTER"] = setting["ALT_FILTER"] - 20
                 if event.key == pygame.K_g:
-                    setting["Filter"] = setting['Filter'] + 20
+                    setting["ALT_FILTER"] = setting["ALT_FILTER"] + 20
                 # running = False
         screen.fill((0, 0, 0))
         draw_my_location(screen)

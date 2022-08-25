@@ -57,7 +57,7 @@ class Aircraft():
                     self.alt = 0
                 else: 
                     self.alt = int(alt_retrieved)
-            if self.alt / 100 > setting['Filter']:
+            if self.alt / 100 > setting['ALT_FILTER']:
                 self.should_draw = False
         # if track_retrieved:
         #     if type(track_retrieved) == tuple:

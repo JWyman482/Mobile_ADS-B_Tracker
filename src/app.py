@@ -9,6 +9,7 @@ def main():
         setting["RR_DIST"] = int(input("Range Rings: "))
         setting["ACFT_FONT"] = int(input("Aircraft Font Size: "))
         setting["BASE_FONT"] = int(input("Base Font Size: "))
+        setting["HOST"] = input("Host: ")
     renderer.run_screen()
 
 if __name__ == '__main__':
