@@ -12,6 +12,7 @@ class BaseStationSprite(pygame.sprite.Sprite):
         self.rrdist = "Range Rings: " + str(setting["RR_DIST"]) + "NM, Range: " + str(setting["RANGE_NM"]) + "NM"
         self.screen_h, self.screen_w = helpers.get_screen_dimensions()
         self.coords = str(setting["LAT"]) + " " + str(setting["LON"]) + ", " + str(self.screen_h) + "x" + str(self.screen_w)
+        self.filter = str("Filter: " + setting['Filter'])
         self.create_point_surface()
         self.create_text_surface()
 
@@ -36,3 +37,4 @@ class BaseStationSprite(pygame.sprite.Sprite):
         if self.text == "Home":
             self.rr_text_surface = font.render(self.rrdist, anti_aliasing, (255, 255, 255))
             self.ll_text_surface = font.render(self.coords, anti_aliasing, (255, 255, 255))
+            self.filt_text_surface = font.render(self.filter, anti_aliasing, (255, 255, 255))

@@ -23,14 +23,11 @@ class BaseStation():
 
     def create_rr(self, rrdist):
         rr = []
-
         conversion = helpers.NM_per_pixel()
-
         for i in range (1, 10):
             rr_radius = rrdist * i * conversion
             rr.append(int(rr_radius))
         return rr
-
 
     def create_sprite(self):
         """Create the sprite for the base station"""
@@ -46,3 +43,4 @@ class BaseStation():
         if self.name == "Home":
             screen.blit(self.sprite.rr_text_surface, (0, 0))
             screen.blit(self.sprite.ll_text_surface, (0, setting["BASE_FONT"] + 2))
+            screen.blit(self.sprite.filt_text_surface, (0, setting["BASE_FONT"] * 2 + 2))
