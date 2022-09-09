@@ -1,6 +1,6 @@
 from sprites.AircraftSprite import AircraftSprite
 import helpers
-from settings import setting
+import settings as stg
 
 
 class Aircraft():
@@ -57,7 +57,7 @@ class Aircraft():
                     self.alt = 0
                 else: 
                     self.alt = int(alt_retrieved)
-            if self.alt / 100 > setting['ALT_FILTER']:
+            if self.alt / 100 > stg.ALT_FILTER:
                 self.should_draw = False
         # if track_retrieved:
         #     if type(track_retrieved) == tuple:
@@ -102,9 +102,9 @@ class Aircraft():
                 )
                 screen.blit(
                     self.sprite.text_surface2,
-                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + setting["ACFT_FONT"])
+                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + stg.ACFT_FONT)
                 )
                 screen.blit(
                     self.sprite.text_surface3,
-                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + (2*setting["ACFT_FONT"]))
+                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + (2*stg.ACFT_FONT))
                 )

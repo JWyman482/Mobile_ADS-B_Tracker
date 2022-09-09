@@ -1,5 +1,5 @@
 import pygame
-from settings import setting
+import settings as stg
 
 class AircraftSprite(pygame.sprite.Sprite):
     """Visual representation of the aircraft"""
@@ -21,7 +21,7 @@ class AircraftSprite(pygame.sprite.Sprite):
 
     def create_text_surface(self):
         """Populates text for sprite"""
-        font = pygame.font.SysFont('helvetica', setting["ACFT_FONT"])
+        font = pygame.font.SysFont('helvetica', stg.ACFT_FONT)
         anti_aliasing = True
         first_line = self.aircraft.name
         second_line = self.aircraft.get_pretty_altitude().zfill(3) + ' ' + str(self.aircraft.type)

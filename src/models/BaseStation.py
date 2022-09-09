@@ -1,6 +1,6 @@
 from sprites.BaseStationSprite import BaseStationSprite
 import helpers
-from settings import setting, airports
+import settings as stg
 
 class BaseStation():
     """Class for representing a base station"""
@@ -10,11 +10,10 @@ class BaseStation():
         self.lat = airport["LAT"]
         self.lon = airport["LON"]
         if self.name == "Home":
-            # print("in Home")
             screen_h, screen_w = helpers.get_screen_dimensions()
             x_coordinate = int(screen_w / 2)
             y_coordinate = int(screen_h / 2)
-            self.rr = self.create_rr(setting["RR_DIST"])
+            self.rr = self.create_rr(stg.RR_DIST)
         else: 
             x_coordinate, y_coordinate = helpers.assign_x_y_from_lat_lon(self.lat, self.lon)
         self.x_coordinate = x_coordinate
@@ -36,11 +35,13 @@ class BaseStation():
 
     def draw(self, screen):
         """Draw the base station on the screen"""
-        x_pixel_buffer = 10
+        x_pixel_buffer = stg.X_PAD
+        y_pixel_buffer = stg.Y_PAD
         screen.blit(self.sprite.point_surface, (self.x_coordinate, self.y_coordinate))
         # screen.blit(self.sprite.line_surface, (self.x_coordinate, self.y_coordinate))
         screen.blit(self.sprite.text_surface, (self.x_coordinate + x_pixel_buffer, self.y_coordinate))
         if self.name == "Home":
-            screen.blit(self.sprite.rr_text_surface, (0, 0))
-            screen.blit(self.sprite.ll_text_surface, (0, setting["BASE_FONT"] + 2))
-            screen.blit(self.sprite.filt_text_surface, (0, setting["BASE_FONT"] * 2 + 2))
+            screen.blit(self.sprite.rr_text_surface, (stg.BAR_WIDTH + x_pixel_buffer, 0))
+            screen.blit(self.sprite.range_text_surface, (stg.BAR_WIDTH + stg.X_PAD, stg.BASE_FONT + stg.Y_PAD))
+            screen.blit(self.sprite.ll_text_surface, (0, stg.BASE_FONT * 2 + y_pixel_buffer))
+            screen.blit(self.sprite.filt_text_surface, (0, stg.BASE_FONT * 3 + y_pixel_buffer))

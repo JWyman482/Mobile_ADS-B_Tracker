@@ -1,6 +1,6 @@
 import pygame
 import helpers
-from settings import setting, airports
+import settings as stg
 
 class BaseStationSprite(pygame.sprite.Sprite):
     """Visual representation of a base station"""
@@ -9,10 +9,11 @@ class BaseStationSprite(pygame.sprite.Sprite):
         super(BaseStationSprite, self).__init__()
         self.rgb = rgb
         self.text = text
-        self.rrdist = "Range Rings: " + str(setting["RR_DIST"]) + "NM, Range: " + str(setting["RANGE_NM"]) + "NM"
+        self.rrdist = "Rings: " + str(stg.RR_DIST) + " NM"
+        self.range = "Range: " + str(stg.RANGE_NM) + " NM"
         self.screen_h, self.screen_w = helpers.get_screen_dimensions()
-        self.coords = str(setting["LAT"]) + " " + str(setting["LON"]) + ", " + str(self.screen_h) + "x" + str(self.screen_w)
-        self.filter = "Filter: " + str(setting['ALT_FILTER'])
+        self.coords = str(stg.LAT) + " " + str(stg.LON) + ", " + str(self.screen_h) + "x" + str(self.screen_w)
+        self.filter = "Filter: " + str(stg.ALT_FILTER)
         self.create_point_surface()
         self.create_text_surface()
 
@@ -31,10 +32,11 @@ class BaseStationSprite(pygame.sprite.Sprite):
 
     def create_text_surface(self):
         """Populates text for sprite"""
-        font = pygame.font.SysFont('helvetica', setting["BASE_FONT"])
+        font = pygame.font.SysFont('helvetica', stg.BASE_FONT)
         anti_aliasing = True
         self.text_surface = font.render(self.text, anti_aliasing, (255, 255, 255))
         if self.text == "Home":
             self.rr_text_surface = font.render(self.rrdist, anti_aliasing, (255, 255, 255))
+            self.range_text_surface = font.render(self.range, anti_aliasing, (255, 255, 255))
             self.ll_text_surface = font.render(self.coords, anti_aliasing, (255, 255, 255))
             self.filt_text_surface = font.render(self.filter, anti_aliasing, (255, 255, 255))
