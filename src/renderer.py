@@ -18,10 +18,11 @@ def draw_my_location(screen):
     """Draws the current user's location"""
     for airport in stg.airports:
         b = BaseStation(airport)
-        b.draw(screen)
         if airport["Name"] == "Home":
            for radius in b.rr:
                pygame.draw.circle(screen, (84, 170, 232), (b.x_coordinate, b.y_coordinate), radius, 2)
+        b.draw(screen)
+
 
 def run_screen():
     if not DEBUG:
@@ -34,7 +35,9 @@ def run_screen():
     is_running = True
     
     # hello_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 50, 350, 275), text = 'Say Hello', manager=manager)
-    Text_Test = pygame_gui.elements.UIHorizontalSlider(relative_rect = pygame.Rect(0, 0, stg.BAR_WIDTH, stg.BAR_HEIGHT), start_value=stg.RR_DIST, value_range=(5, 50), manager=manager)
+    rr_slider = pygame_gui.elements.UIHorizontalSlider(relative_rect = pygame.Rect(stg.RR_RECT), start_value=stg.RR_DIST, value_range=(5, 50), manager=manager)
+    
+    range_slider = pygame_gui.elements.UIHorizontalSlider(relative_rect = pygame.Rect(stg.RANGE_RECT), start_value=stg.RANGE_NM, value_range=(10, 100), manager=manager)
 
     while is_running:
         time_delta = clock.tick(60)/1000.0
@@ -58,9 +61,12 @@ def run_screen():
                     stg.ALT_FILTER = stg.ALT_FILTER + 20
             
             if event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
-                if event.ui_element == Text_Test:
-                    print(Text_Test.get_current_value())
-                    stg.RR_DIST = Text_Test.get_current_value()
+                if event.ui_element == rr_slider:
+                    # print(rr_slider.get_current_value())
+                    stg.RR_DIST = rr_slider.get_current_value()
+                if event.ui_element == range_slider:
+                    # print(range_slider.get_current_value())
+                    stg.RANGE_NM = range_slider.get_current_value()
                 
             manager.process_events(event)
         

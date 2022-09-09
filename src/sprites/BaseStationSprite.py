@@ -32,7 +32,7 @@ class BaseStationSprite(pygame.sprite.Sprite):
 
     def create_text_surface(self):
         """Populates text for sprite"""
-        font = pygame.font.SysFont('helvetica', stg.BASE_FONT)
+        font = pygame.font.SysFont('consolas', stg.BASE_FONT)
         anti_aliasing = True
         self.text_surface = font.render(self.text, anti_aliasing, (255, 255, 255))
         if self.text == "Home":

@@ -1,3 +1,4 @@
+# from tkinter import Y
 import decoder # For GPS use
 from haversine import haversine, Unit
 
@@ -10,7 +11,7 @@ HOST = "127.0.0.1"
 LAT, LON = 47.7997, -122.5100
 # LAT, LON = decoder.get_lat_lon(HOST)
 NM_PER_DEGREE_LAT, NM_PER_DEGREE_LON = setLatLon(LAT, LON)
-BASE_FONT = 12
+BASE_FONT = 15
 ACFT_FONT = 12
 RANGE_NM = 40
 RR_DIST = 10
@@ -19,10 +20,26 @@ PORT = 30003
 HDR_SIZE = 4096
 TIMEOUT = 60
 SCREENSIZE = (750, 750)
+
+""" UI Settings """
 X_PAD = 10
 Y_PAD = 5
 BAR_WIDTH = int(SCREENSIZE[0] / 5)
-BAR_HEIGHT = BASE_FONT + Y_PAD
+BAR_HEIGHT = BASE_FONT
+LL_X = 0
+LL_Y = 0
+LL_XY = (LL_X, LL_Y)
+BAR_X = 0
+BAR_Y = BASE_FONT + Y_PAD
+RR_XY = (BAR_WIDTH + X_PAD, BAR_Y)
+# RANGE_X = BAR_WIDTH + X_PAD
+# RANGE_Y = (BASE_FONT + Y_PAD) * 2
+RANGE_XY = (BAR_WIDTH + X_PAD, BAR_Y * 2)
+FILT_X = 0
+FILT_Y = (BASE_FONT + Y_PAD) * 3
+FILT_XY = (FILT_X, FILT_Y)
+RANGE_RECT = (BAR_X, BAR_Y, BAR_WIDTH, BAR_HEIGHT)
+RR_RECT = (BAR_X, BAR_Y * 2, BAR_WIDTH, BAR_HEIGHT)
 
 airports = [
     {
