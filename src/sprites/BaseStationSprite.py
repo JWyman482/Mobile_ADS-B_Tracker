@@ -21,14 +21,15 @@ class BaseStationSprite(pygame.sprite.Sprite):
         """Creates a point"""
         container_height = 6
         container_width = 6
-        # line_width = 20
-        # line_height = 20
+        line_width = 20
+        line_height = 20
         radius = 3
         self.point_surface = pygame.Surface((container_height, container_width))
-        # self.line_surface = pygame.Surface((line_height, line_width))
-        pygame.draw.circle(self.point_surface, self.rgb, (container_height//2, container_width//2), radius)
-        # pygame.draw.aaline(self.line_surface, self.rgb, (0, 0), (line_width, 0), 3)
-        # pygame.transform.rotate(self.line_surface, 90)
+        self.line_surface = pygame.Surface((line_height, line_width))
+        # pygame.draw.circle(self.point_surface, self.rgb, (container_height//2, container_width//2), radius)
+        pygame.draw.line(self.line_surface, self.rgb, (0, 0), (0, line_width), 3)
+        pygame.transform.rotate(self.line_surface, float(90.0))
+
 
     def create_text_surface(self):
         """Populates text for sprite"""
@@ -40,3 +41,4 @@ class BaseStationSprite(pygame.sprite.Sprite):
             self.range_text_surface = font.render(self.range, anti_aliasing, (255, 255, 255))
             self.ll_text_surface = font.render(self.coords, anti_aliasing, (255, 255, 255))
             self.filt_text_surface = font.render(self.filter, anti_aliasing, (255, 255, 255))
+

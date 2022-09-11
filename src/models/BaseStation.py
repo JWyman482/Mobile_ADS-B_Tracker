@@ -1,6 +1,7 @@
 from sprites.BaseStationSprite import BaseStationSprite
 import helpers
 import settings as stg
+# from settings import airports
 
 class BaseStation():
     """Class for representing a base station"""
@@ -26,21 +27,22 @@ class BaseStation():
     def create_rr(self, rrdist):
         rr = []
         conversion = helpers.NM_per_pixel()
-        for i in range (1, 10):
+        for i in range (1, 20):
             rr_radius = rrdist * i * conversion
             rr.append(int(rr_radius))
         return rr
 
     def create_sprite(self):
         """Create the sprite for the base station"""
-        rgb = (84, 170, 232)
+        rgb = (250, 170, 0)
         self.sprite = BaseStationSprite(rgb, self.name)
+        # self.sprite = BaseStationSprite(self.name)
 
     def draw(self, screen):
         """Draw the base station on the screen"""
         
-        screen.blit(self.sprite.point_surface, (self.x_coordinate, self.y_coordinate))
-        # screen.blit(self.sprite.line_surface, (self.x_coordinate, self.y_coordinate))
+        # screen.blit(self.sprite.point_surface, (self.x_coordinate, self.y_coordinate))
+        screen.blit(self.sprite.line_surface, (self.x_coordinate, self.y_coordinate))
         screen.blit(self.sprite.text_surface, (self.x_coordinate + stg.X_PAD, self.y_coordinate))
         if self.name == "Home":
             screen.blit(self.sprite.ll_text_surface, stg.LL_XY)

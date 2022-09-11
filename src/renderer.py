@@ -30,14 +30,17 @@ def run_screen():
     
     """Runs the screen"""
     screen = get_screen()
-    manager = pygame_gui.UIManager((750,750))
+    manager = pygame_gui.UIManager(stg.SCREENSIZE)
     clock = pygame.time.Clock()
     is_running = True
     
-    # hello_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect(50, 50, 350, 275), text = 'Say Hello', manager=manager)
     rr_slider = pygame_gui.elements.UIHorizontalSlider(relative_rect = pygame.Rect(stg.RR_RECT), start_value=stg.RR_DIST, value_range=(5, 50), manager=manager)
     
     range_slider = pygame_gui.elements.UIHorizontalSlider(relative_rect = pygame.Rect(stg.RANGE_RECT), start_value=stg.RANGE_NM, value_range=(10, 100), manager=manager)
+
+    filter_slider = pygame_gui.elements.UIHorizontalSlider(relative_rect = pygame.Rect(stg.FILTER_RECT), start_value=stg.ALT_FILTER, value_range=(40, 400), manager=manager)
+
+    reset_button = pygame_gui.elements.UIButton(relative_rect= pygame.Rect(stg.RESET_RECT), text = "Reset", manager = manager)
 
     while is_running:
         time_delta = clock.tick(60)/1000.0
@@ -67,6 +70,16 @@ def run_screen():
                 if event.ui_element == range_slider:
                     # print(range_slider.get_current_value())
                     stg.RANGE_NM = range_slider.get_current_value()
+                if event.ui_element == filter_slider:
+                    # print(filter_slider.get_current_value())
+                    stg.ALT_FILTER = filter_slider.get_current_value()
+            
+            if event.type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == reset_button:
+                    stg.RR_DIST = stg.DEF_RR_DIST
+                    stg.RANGE_NM = stg.DEF_RANGE_NM
+                    stg.ALT_FILTER = stg.DEF_ALT_FILTER
+
                 
             manager.process_events(event)
         
