@@ -29,7 +29,8 @@ class BaseStationSprite(pygame.sprite.Sprite):
         # pygame.draw.circle(self.point_surface, self.rgb, (container_height//2, container_width//2), radius)
         pygame.draw.line(self.line_surface, self.rgb, (0, 0), (0, line_width), 3)
         pygame.transform.rotate(self.line_surface, float(90.0))
-
+        # pygame.draw.line(self.line_surface, self.rgb, (0, 0), (0, line_width), 3)
+        # TAN(RWY*10) = |y|/|linewidth|
 
     def create_text_surface(self):
         """Populates text for sprite"""
