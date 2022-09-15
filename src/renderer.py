@@ -5,7 +5,7 @@ import settings as stg
 from models.Aircraft import Aircraft
 from models.BaseStation import BaseStation
 
-DEBUG = True
+DEBUG = False
 
 def get_screen():
     """Returns the screen object"""

@@ -7,7 +7,8 @@ def setLatLon(LAT, LON):
     distLon = haversine((LAT, LON), (LAT, LON-1), unit=Unit.NAUTICAL_MILES)
     return distLat, distLon
 
-HOST = "127.0.0.1"
+# HOST = "127.0.0.1"
+HOST = "192.168.1.27"
 PORT = 30003
 LAT, LON = 47.7997, -122.5100
 # LAT, LON = decoder.get_lat_lon(HOST)
