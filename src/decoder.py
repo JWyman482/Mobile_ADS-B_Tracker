@@ -86,9 +86,9 @@ def get_aircraft(HDR_SIZE, TIMEOUT):
     """
     return current_aircraft
 
-def get_lat_lon():
+def get_lat_lon(HOST):
     # Listen on port 2947 (gpsd) of localhost
-    session = gps.gps("192.168.1.34", "2947")
+    session = gps.gps(HOST, "2947")
     session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
     lat = None
     lon = None

@@ -41,9 +41,9 @@ def run_screen():
     filter_slider = pygame_gui.elements.UIHorizontalSlider(relative_rect = pygame.Rect(stg.FILTER_RECT), start_value=stg.ALT_FILTER, value_range=(40, 400), manager=manager)
 
     reset_button = pygame_gui.elements.UIButton(relative_rect= pygame.Rect(stg.RESET_RECT), text = "Reset", manager = manager)
-
+        
     while is_running:
-        time_delta = clock.tick(60)/1000.0
+        time_delta = clock.tick(100)/1000.0
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -83,9 +83,10 @@ def run_screen():
                 
             manager.process_events(event)
         
-        manager.update(time_delta)
         screen.fill((0, 0, 0))
         draw_my_location(screen)
+        manager.update(time_delta)
+        
         
         if not DEBUG: aircraftList = decoder.get_aircraft(stg.HDR_SIZE, stg.TIMEOUT)
         else: aircraftList = {}
