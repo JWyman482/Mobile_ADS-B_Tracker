@@ -1,5 +1,6 @@
 import gps
 import socket
+import os
 from time import time
 
 current_aircraft = {}
