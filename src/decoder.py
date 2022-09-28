@@ -42,6 +42,7 @@ def get_aircraft(HDR_SIZE, TIMEOUT):
         if acft[4] not in current_aircraft:
             current_aircraft[acft[4]] = {"Callsign": "", "Count": 0.0, "Alt": "", "Lat": "", "Lon": "", "Squawk": ""}
             current_aircraft[acft[4]]["Count"] = time()
+            current_aircraft[acft[4]]["Type"] = get_aircraft_type(acft[4])
         
         # Callsign
         if acft[10] != '' and acft[10] != current_aircraft[acft[4]]["Callsign"]:
@@ -85,6 +86,29 @@ def get_aircraft(HDR_SIZE, TIMEOUT):
     }
     """
     return current_aircraft
+
+
+def get_aircraft_type(icao_hex):
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    json_dir_path = os.path.join(dir_path, '../../dump1090/public_html/db')
+    return request_from_db(icao_hex, 1, json_dir_path)
+    
+def request_from_db(icao, level, path):
+    icao = icao.upper()
+    bkey = icao[:level]
+    dkey = icao[level:]
+    json_path = os.path.join(path, bkey + '.json')
+
+    with open(json_path) as file:
+        type_json = json.loads(file.read())
+    if dkey in type_json:
+        return type_json[dkey].get('t')
+    elif "children" in type_json:
+        subkey = bkey + dkey[:1]
+        if subkey in type_json['children']:
+            return request_from_db(icao, level + 1, path)
+        return "Unk"
+    return "Unk"
 
 def get_lat_lon(HOST):
     # Listen on port 2947 (gpsd) of localhost

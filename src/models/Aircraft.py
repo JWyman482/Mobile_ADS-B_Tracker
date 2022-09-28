@@ -10,7 +10,7 @@ class Aircraft():
         self.normalize_inputs(aircraft_dict)
         if self.should_draw:
             self.dist = helpers.get_distance(self.lat, self.lng)
-            self.type = aircraft_dict.get('type')
+            self.type = aircraft_dict.get('Type')
             self.create_sprite()
             x_coordinate, y_coordinate = helpers.assign_x_y_from_lat_lon(self.lat, self.lng)
             self.x_coordinate = x_coordinate
