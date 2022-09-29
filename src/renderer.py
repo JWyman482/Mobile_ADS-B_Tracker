@@ -84,9 +84,9 @@ def run_screen():
             manager.process_events(event)
         
         screen.fill((0, 0, 0))
-        draw_my_location(screen)
         manager.update(time_delta)
         manager.draw_ui(screen)
+        draw_my_location(screen)
         
         if not DEBUG: aircraftList = decoder.get_aircraft(stg.HDR_SIZE, stg.TIMEOUT)
         else: aircraftList = {}
