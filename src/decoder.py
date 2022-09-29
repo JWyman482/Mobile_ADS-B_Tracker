@@ -44,7 +44,8 @@ def get_aircraft(HDR_SIZE, TIMEOUT):
         if acft[4] not in current_aircraft:
             current_aircraft[acft[4]] = {"Callsign": "", "Count": 0.0, "Alt": "", "Lat": "", "Lon": "", "Squawk": "", "Track": ""}
             current_aircraft[acft[4]]["Count"] = time()
-            current_aircraft[acft[4]]["Type"] = get_aircraft_type(acft[4])
+            if s.getsockname()[0] == "127.0.0.1":
+                current_aircraft[acft[4]]["Type"] = get_aircraft_type(acft[4])
         
         # Callsign
         if acft[10] != '' and acft[10] != current_aircraft[acft[4]]["Callsign"]:
