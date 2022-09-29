@@ -86,7 +86,7 @@ def run_screen():
         screen.fill((0, 0, 0))
         draw_my_location(screen)
         manager.update(time_delta)
-        
+        manager.draw_ui(screen)
         
         if not DEBUG: aircraftList = decoder.get_aircraft(stg.HDR_SIZE, stg.TIMEOUT)
         else: aircraftList = {}
@@ -95,6 +95,5 @@ def run_screen():
             a = Aircraft(aircraftList[aircraft])
             a.draw(screen)
         
-        manager.draw_ui(screen)
         pygame.display.flip()
         # pygame.time.wait(1000)

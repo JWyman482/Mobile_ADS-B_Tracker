@@ -42,7 +42,7 @@ def get_aircraft(HDR_SIZE, TIMEOUT):
         
         # ICAO
         if acft[4] not in current_aircraft:
-            current_aircraft[acft[4]] = {"Callsign": "", "Count": 0.0, "Alt": "", "Lat": "", "Lon": "", "Squawk": ""}
+            current_aircraft[acft[4]] = {"Callsign": "", "Count": 0.0, "Alt": "", "Lat": "", "Lon": "", "Squawk": "", "Track": ""}
             current_aircraft[acft[4]]["Count"] = time()
             current_aircraft[acft[4]]["Type"] = get_aircraft_type(acft[4])
         
@@ -66,7 +66,12 @@ def get_aircraft(HDR_SIZE, TIMEOUT):
         if acft[17] != '' and acft[17] != current_aircraft[acft[4]]["Squawk"]:
             current_aircraft[acft[4]]["Squawk"] = acft[17]
             current_aircraft[acft[4]]["Count"] = time()
-
+        
+        # Track
+        if acft[13] != '' and acft[13] != current_aircraft[acft[4]]["Track"]:
+            current_aircraft[acft[4]]["Track"] = acft[13]
+            current_aircraft[acft[4]]["Count"] = time()
+            
     time_out_acft(TIMEOUT)
     """
     current_aircraft structure:

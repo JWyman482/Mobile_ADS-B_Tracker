@@ -1,6 +1,7 @@
 from sprites.AircraftSprite import AircraftSprite
 import helpers
 import settings as stg
+import pygame
 
 
 class Aircraft():
@@ -24,7 +25,7 @@ class Aircraft():
         self.lng = None
         self.squawk = None
         self.alt = None
-        # self.track = None
+        self.track = None
         self.should_draw = True
 
         name_retrieved = aircraft_dict.get('Callsign')
@@ -32,7 +33,8 @@ class Aircraft():
         lng_retrieved = aircraft_dict.get('Lon')
         squawk_retrieved = aircraft_dict.get('Squawk')
         alt_retrieved = aircraft_dict.get('Alt')
-        # track_retrieved = aircraft_dict.get('track')
+        track_retrieved = aircraft_dict.get('Track')
+        print(aircraft_dict.get('Track'))
 
         if name_retrieved:
             self.name = name_retrieved.strip()
@@ -59,11 +61,12 @@ class Aircraft():
                     self.alt = int(alt_retrieved)
             if self.alt / 100 > stg.ALT_FILTER:
                 self.should_draw = False
-        # if track_retrieved:
-        #     if type(track_retrieved) == tuple:
-        #         self.track = int(track_retrieved[0])
-        #     else:
-        #         self.track = int(track_retrieved)
+        if track_retrieved:
+            if type(track_retrieved) == tuple:
+                self.track = float(track_retrieved[0])
+            else:
+                self.track = float(track_retrieved)
+            print(track_retrieved)
 
     def check_aircraft_bounds(self):
         """Determines if the aircraft is within reporting bounds"""
@@ -92,19 +95,33 @@ class Aircraft():
 
     def draw(self, screen):
         """Draw the aircraft on the screen"""
-        x_pixel_buffer = 10
+        x_pixel_buffer = 20
+        y_pixel_buffer = 20
         if self.should_draw:
             if self.is_in_bounds:
-                screen.blit(self.sprite.point_surface, (self.x_coordinate, self.y_coordinate))
+                # rotated_surface = pygame.transform.rotate(self.sprite.point_surface, self.track) 
+                #rect = self.sprite.point_surface.get_rect(center = (self.x_coordinate, self.y_coordinate))
+                #screen.blit(self.sprite.point_surface, (rect.x, rect.y))
+                #screen.blit(self.sprite.point_surface, (self.x_coordinate, self.y_coordinate)) 
+                lineSurf = pygame.Surface((8, 2), pygame.SRCALPHA)
+                pygame.draw.line(lineSurf, (228, 242, 70), (self.x_coordinate, self.y_coordinate - 4), (self.x_coordinate, self.y_coordinate + 4), 2)
+                if self.track:
+                    rotSurf = pygame.transform.rotate(lineSurf, self.track)
+                    rect = rotSurf.get_rect(center=(self.x_coordinate, self.y_coordinate))
+                    screen.blit(rotSurf, rect)
+                else:
+                    rect = lineSurf.get_rect(center=(self.x_coordinate, self.y_coordinate))
+                    screen.blit(lineSurf, rect)
+
                 screen.blit(
                     self.sprite.text_surface,
-                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate)
+                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + y_pixel_buffer)
                 )
                 screen.blit(
                     self.sprite.text_surface2,
-                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + stg.ACFT_FONT)
+                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + y_pixel_buffer + stg.ACFT_FONT)
                 )
                 screen.blit(
                     self.sprite.text_surface3,
-                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + (2*stg.ACFT_FONT))
+                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + y_pixel_buffer + (2*stg.ACFT_FONT))
                 )

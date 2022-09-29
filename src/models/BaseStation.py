@@ -10,6 +10,7 @@ class BaseStation():
         self.name = airport["Name"]
         self.lat = airport["LAT"]
         self.lon = airport["LON"]
+        self.rwy = airport["RWY"]
         if self.name == "Home":
             # stg.SCREENSIZE = helpers.get_screen_dimensions()
             # stg.BAR_WIDTH = int(stg.SCREENSIZE[1] / 5)
@@ -35,7 +36,7 @@ class BaseStation():
     def create_sprite(self):
         """Create the sprite for the base station"""
         rgb = (250, 170, 0)
-        self.sprite = BaseStationSprite(rgb, self.name)
+        self.sprite = BaseStationSprite(rgb, self.rwy * -1, self.name)
         # self.sprite = BaseStationSprite(self.name)
 
     def draw(self, screen):
