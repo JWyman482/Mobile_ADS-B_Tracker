@@ -41,9 +41,10 @@ class BaseStation():
 
     def draw(self, screen):
         """Draw the base station on the screen"""
-        
+        lineRect = self.sprite.line_surface.get_rect(center = (self.x_coordinate, self.y_coordinate))
+        # lineRect = self.x_coordinate, self.y_coordinate
         # screen.blit(self.sprite.point_surface, (self.x_coordinate, self.y_coordinate))
-        screen.blit(self.sprite.line_surface, (self.x_coordinate, self.y_coordinate))
+        screen.blit(self.sprite.line_surface, lineRect)
         screen.blit(self.sprite.text_surface, (self.x_coordinate + stg.X_PAD, self.y_coordinate))
         if self.name == "Home":
             screen.blit(self.sprite.ll_text_surface, stg.LL_XY)
