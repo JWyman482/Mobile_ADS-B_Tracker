@@ -45,7 +45,9 @@ class BaseStation():
         # lineRect = self.x_coordinate, self.y_coordinate
         # screen.blit(self.sprite.point_surface, (self.x_coordinate, self.y_coordinate))
         screen.blit(self.sprite.line_surface, lineRect)
-        screen.blit(self.sprite.text_surface, (self.x_coordinate + stg.X_PAD, self.y_coordinate))
+        # screen.blit(self.sprite.text_surface, (self.x_coordinate + stg.X_PAD, self.y_coordinate))
+        labelRect = self.sprite.text_surface.get_rect(center = (self.x_coordinate, self.y_coordinate))
+        screen.blit(self.sprite.text_surface, labelRect)
         if self.name == "Home":
             screen.blit(self.sprite.ll_text_surface, stg.LL_XY)
             screen.blit(self.sprite.rr_text_surface, stg.RR_XY)

@@ -14,19 +14,19 @@ class AircraftSprite(pygame.sprite.Sprite):
         """Creates a point"""
         point_colour = (228, 242, 70)
         container_height = 8
-        container_width = 8
+        container_width = 3
         radius = 2
 
         surface = pygame.Surface((container_height, container_width), pygame.SRCALPHA) 
         # print(type(self.aircraft.track))
 
-        if type(self.aircraft.track) != int:
+        if type(self.aircraft.track) != float:
             self.point_surface = surface
         else: 
             print("Rotating")
             self.point_surface = pygame.transform.rotate(surface, self.aircraft.track)
         # pygame.draw.circle(self.point_surface, point_colour, (container_height//2, container_width//2), radius)
-        pygame.draw.line(self.point_surface, point_colour, (container_width//2, 0), (container_width//2, container_height))
+        pygame.draw.line(self.point_surface, point_colour, (0, 0), (0, container_height), 3)
 
     def create_text_surface(self):
         """Populates text for sprite"""

@@ -20,7 +20,7 @@ class BaseStationSprite(pygame.sprite.Sprite):
 
     def create_point_surface(self):
         """Creates a point"""
-        container_height = 6
+        container_height = 20
         container_width = 3
         line_width = 20
         line_height = 20
