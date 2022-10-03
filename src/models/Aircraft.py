@@ -12,10 +12,10 @@ class Aircraft():
         if self.should_draw:
             self.dist = helpers.get_distance(self.lat, self.lng)
             self.type = aircraft_dict.get('Type')
-            self.create_sprite()
             x_coordinate, y_coordinate = helpers.assign_x_y_from_lat_lon(self.lat, self.lng)
             self.x_coordinate = x_coordinate
             self.y_coordinate = y_coordinate
+            self.create_sprite()
             self.check_aircraft_bounds()
 
     def normalize_inputs(self, aircraft_dict):
@@ -66,7 +66,7 @@ class Aircraft():
                 self.track = float(track_retrieved[0])
             else:
                 self.track = float(track_retrieved)
-            print(track_retrieved)
+            # print(track_retrieved)
 
     def check_aircraft_bounds(self):
         """Determines if the aircraft is within reporting bounds"""
@@ -94,24 +94,33 @@ class Aircraft():
         pass
 
     def draw(self, screen):
+        
         """Draw the aircraft on the screen"""
-        x_pixel_buffer = 20
-        y_pixel_buffer = 20
+        x_pixel_buffer = 5
+        y_pixel_buffer = 5
+        # line_width = 10
+        # line_height = 3
+        # line_color = (72, 245, 66)
+
         if self.should_draw:
             if self.is_in_bounds:
-                # rotated_surface = pygame.transform.rotate(self.sprite.point_surface, self.track) 
+                
+                # rect = self.sprite.surface.get_rect(center = (self.x_coordinate, self.y_coordinate))
                 #rect = self.sprite.point_surface.get_rect(center = (self.x_coordinate, self.y_coordinate))
                 #screen.blit(self.sprite.point_surface, (rect.x, rect.y))
                 #screen.blit(self.sprite.point_surface, (self.x_coordinate, self.y_coordinate)) 
-                lineSurf = pygame.Surface((8, 2), pygame.SRCALPHA)
-                pygame.draw.line(lineSurf, (228, 242, 70), (self.x_coordinate, self.y_coordinate - 4), (self.x_coordinate, self.y_coordinate + 4), 2)
-                if self.track:
-                    rotSurf = pygame.transform.rotate(lineSurf, self.track)
-                    rect = rotSurf.get_rect(center=(self.x_coordinate, self.y_coordinate))
-                    screen.blit(rotSurf, rect)
-                else:
-                    rect = lineSurf.get_rect(center=(self.x_coordinate, self.y_coordinate))
-                    screen.blit(lineSurf, rect)
+                
+                # if self.track:
+                #     pygame.draw.line(lineSurf, line_color, (0,0), (line_width, 0), 3)
+                #     lineSurf = pygame.Surface((line_width, line_height), pygame.SRCALPHA)
+                #     rotSurf = pygame.transform.rotate(lineSurf, self.track * -1)
+                #     rect = rotSurf.get_rect(center=(self.x_coordinate, self.y_coordinate))
+                #     screen.blit(rotSurf, rect)
+                # else:
+                #     rect = lineSurf.get_rect(center=(self.x_coordinate, self.y_coordinate))
+                #     screen.blit(lineSurf, rect)
+                
+                screen.blit(self.sprite.surface, self.sprite.rect)
 
                 screen.blit(
                     self.sprite.text_surface,

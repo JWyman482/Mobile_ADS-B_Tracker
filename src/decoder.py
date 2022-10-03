@@ -7,8 +7,6 @@ from time import time
 
 current_aircraft = {}
 
-
-
 # Create the client socket
 s = socket.socket()
 
@@ -96,7 +94,7 @@ def get_aircraft(HDR_SIZE, TIMEOUT):
         }
     }
     """
-    print(current_aircraft)
+    # print(current_aircraft)
     return current_aircraft
 
 

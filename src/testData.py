@@ -1,15 +1,9 @@
 from queue import Empty
 
+def get_aircraft(orig_message):
 
-if __name__ == '__main__':
-    a = open("testData.txt", "r")
-    orig_message = a.read()
-    a.close()
-
-    current_aircraft = []
-
-    print(orig_message)
     if orig_message == Empty: exit()
+    orig_message = orig_message.split("\n")
     # Split below breaks down the pieces of each message.
     for acft in orig_message:
         acft = acft.split(',')
@@ -65,15 +59,25 @@ if __name__ == '__main__':
             "Alt": "9500",
             "Lat": "42.23423",
             "Lon": "-122.12321"
+            "Track": "225",
         },
         "ICAO2": {
             "Callsign": "balls2",
             "Count": 0.0,
             "Alt": "9500",
             "Lat": "42.23423",
-            "Lon": "-122.12321"
+            "Lon": "-122.12321",
+            "Track": "360"
         }
     }
     """
     print(current_aircraft)
+
+if __name__ == '__main__':
+    a = open("src/testData.txt", "r")
+    orig_message = a.read()
+    a.close()
+
+    current_aircraft = {}
+
     

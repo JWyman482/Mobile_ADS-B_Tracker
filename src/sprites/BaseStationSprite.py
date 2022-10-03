@@ -25,11 +25,11 @@ class BaseStationSprite(pygame.sprite.Sprite):
         line_width = 20
         line_height = 20
         radius = 3
-        self.point_surface = pygame.Surface((container_height, container_width))
+        # self.point_surface = pygame.Surface((container_height, container_width))
         # self.surface = pygame.Surface((line_height, line_width), pygame.SRCALPHA)
         self.surface = pygame.Surface((container_width, container_height), pygame.SRCALPHA)
         # pygame.draw.circle(self.point_surface, self.rgb, (container_height//2, container_width//2), radius)
-        pygame.draw.line(self.surface, self.rgb, (0, 0), (0, line_width), 2)
+        pygame.draw.line(self.surface, self.rgb, (0, 0), (0, line_height), 2)
         self.line_surface = pygame.transform.rotate(self.surface, self.rwy)
         # pygame.draw.line(self.line_surface, self.rgb, (0, 0), (0, line_width), 3)
         # TAN(RWY*10) = |y|/|linewidth|
