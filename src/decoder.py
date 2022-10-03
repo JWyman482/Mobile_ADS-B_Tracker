@@ -31,10 +31,7 @@ def time_out_acft(TIMEOUT):
 def get_aircraft(HDR_SIZE, TIMEOUT):
     # orig_message will be multiple acft in base-station format
     # The first split splits the msgs into individual messages
-    # orig_message = s.recv(HDR_SIZE).decode().split('\n')
-    a = open("testData.txt", "r")
-    orig_message = a.read()
-    a.close()
+    orig_message = s.recv(HDR_SIZE).decode().split('\n')
 
     if orig_message == Empty: return current_aircraft
     # Split below breaks down the pieces of each message.
@@ -99,6 +96,7 @@ def get_aircraft(HDR_SIZE, TIMEOUT):
         }
     }
     """
+    print(current_aircraft)
     return current_aircraft
 
 
