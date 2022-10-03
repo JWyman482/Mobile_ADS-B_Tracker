@@ -34,7 +34,7 @@ class Aircraft():
         squawk_retrieved = aircraft_dict.get('Squawk')
         alt_retrieved = aircraft_dict.get('Alt')
         track_retrieved = aircraft_dict.get('Track')
-        print(aircraft_dict.get('Track'))
+        # print(aircraft_dict.get('Track'))
 
         if name_retrieved:
             self.name = name_retrieved.strip()

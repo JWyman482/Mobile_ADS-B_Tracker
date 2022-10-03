@@ -1,3 +1,4 @@
+from queue import Empty
 import gps
 import socket
 import os
@@ -5,6 +6,7 @@ import json
 from time import time
 
 current_aircraft = {}
+
 
 
 # Create the client socket
@@ -29,8 +31,12 @@ def time_out_acft(TIMEOUT):
 def get_aircraft(HDR_SIZE, TIMEOUT):
     # orig_message will be multiple acft in base-station format
     # The first split splits the msgs into individual messages
-    orig_message = s.recv(HDR_SIZE).decode().split('\n')
+    # orig_message = s.recv(HDR_SIZE).decode().split('\n')
+    a = open("testData.txt", "r")
+    orig_message = a.read()
+    a.close()
 
+    if orig_message == Empty: return current_aircraft
     # Split below breaks down the pieces of each message.
     for acft in orig_message:
         acft = acft.split(',')
