@@ -8,7 +8,8 @@ def main():
     print(f"1) Try GPS module\n2) Manually enter GPS coords\n3) Use current Coords ({settings.LAT, settings.LON})")
     choice = input(">")
     if int(choice) == 1:
-        settings.LAT, settings.LON = decoder.get_lat_lon(settings.HOST)
+        # settings.LAT, settings.LON = decoder.get_lat_lon(settings.HOST)
+        settings.LAT, settings.LON = decoder.get_lat_lon()
         
     elif int(choice) == 2:
         latInput = input("Enter your latitude. Example - 46.333221: ")
