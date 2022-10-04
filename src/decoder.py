@@ -120,31 +120,38 @@ def request_from_db(icao, level, path):
         return "Unk"
     return "Unk"
 
-def get_lat_lon(HOST):
-    # Listen on port 2947 (gpsd) of localhost
-    session = gps.gps(HOST, "2947")
-    session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
-    lat = None
-    lon = None
+# def get_lat_lon(HOST):
+#     # Listen on port 2947 (gpsd) of localhost
+#     session = gps.gps(HOST, "2947")
+#     session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
+#     lat = None
+#     lon = None
 
-    while lat == None and lon == None:
-        try:
-            report = session.next()
-            # Wait for a 'TPV' report and display the current time
-            # To see all report data, uncomment the line below
-            # print(report)
-            if report['class'] == 'TPV':
-                if hasattr(report, 'lat') and hasattr(report, 'lon'):
-                    print(str(report.lat) + " " + str(report.lon))
-                    lat = round(report.lat, 4)
-                    lon = round(report.lon, 4)
-                    print(str(lat) + " " + str(lon))
-                    session = None
-                    return lat, lon
-        except KeyError:
-            pass
-        except KeyboardInterrupt:
-            quit()
-        except StopIteration:
-            session = None
-            print("GPSD has terminated")
+#     while lat == None and lon == None:
+#         try:
+#             report = session.next()
+#             # Wait for a 'TPV' report and display the current time
+#             # To see all report data, uncomment the line below
+#             # print(report)
+#             if report['class'] == 'TPV':
+#                 if hasattr(report, 'lat') and hasattr(report, 'lon'):
+#                     print(str(report.lat) + " " + str(report.lon))
+#                     lat = round(report.lat, 4)
+#                     lon = round(report.lon, 4)
+#                     print(str(lat) + " " + str(lon))
+#                     session = None
+#                     return lat, lon
+#         except KeyError:
+#             pass
+#         except KeyboardInterrupt:
+#             quit()
+#         except StopIteration:
+#             session = None
+#             print("GPSD has terminated")
+
+def get_lat_lon():
+    gpsd = gps(mode=WATCH_ENABLE|WATCH_NEWSTYLE)
+    nx = gpsd.next()
+    if nx['class'] == 'TPV':
+        lattitude = getattr(nx, 'lat', "Unknown")
+        longitude = getattr(nx, 'lon', "Unknown")
