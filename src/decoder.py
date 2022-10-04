@@ -1,5 +1,5 @@
 from queue import Empty
-import gps
+from gps import * 
 import socket
 import os
 import json
@@ -151,7 +151,13 @@ def request_from_db(icao, level, path):
 
 def get_lat_lon():
     gpsd = gps(mode=WATCH_ENABLE|WATCH_NEWSTYLE)
+    
     nx = gpsd.next()
+    while nx['class'] != 'TPV':
+        nx = gpsd.next()
+    
     if nx['class'] == 'TPV':
         lattitude = getattr(nx, 'lat', "Unknown")
         longitude = getattr(nx, 'lon', "Unknown")
+        return lattitude, longitude
+    return 0, 0

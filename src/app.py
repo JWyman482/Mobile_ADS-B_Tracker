@@ -9,7 +9,10 @@ def main():
     choice = input(">")
     if int(choice) == 1:
         # settings.LAT, settings.LON = decoder.get_lat_lon(settings.HOST)
-        settings.LAT, settings.LON = decoder.get_lat_lon()
+        tempLat, tempLon = decoder.get_lat_lon()
+        print(f"Lat: {tempLat}, Lon: {tempLon}")
+        if tempLat != 0:
+            settings.LAT, settings.LON = tempLat, tempLon
         
     elif int(choice) == 2:
         latInput = input("Enter your latitude. Example - 46.333221: ")
