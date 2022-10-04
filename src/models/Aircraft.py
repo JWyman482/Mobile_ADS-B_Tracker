@@ -98,27 +98,9 @@ class Aircraft():
         """Draw the aircraft on the screen"""
         x_pixel_buffer = 5
         y_pixel_buffer = 5
-        # line_width = 10
-        # line_height = 3
-        # line_color = (72, 245, 66)
 
         if self.should_draw:
             if self.is_in_bounds:
-                
-                # rect = self.sprite.surface.get_rect(center = (self.x_coordinate, self.y_coordinate))
-                #rect = self.sprite.point_surface.get_rect(center = (self.x_coordinate, self.y_coordinate))
-                #screen.blit(self.sprite.point_surface, (rect.x, rect.y))
-                #screen.blit(self.sprite.point_surface, (self.x_coordinate, self.y_coordinate)) 
-                
-                # if self.track:
-                #     pygame.draw.line(lineSurf, line_color, (0,0), (line_width, 0), 3)
-                #     lineSurf = pygame.Surface((line_width, line_height), pygame.SRCALPHA)
-                #     rotSurf = pygame.transform.rotate(lineSurf, self.track * -1)
-                #     rect = rotSurf.get_rect(center=(self.x_coordinate, self.y_coordinate))
-                #     screen.blit(rotSurf, rect)
-                # else:
-                #     rect = lineSurf.get_rect(center=(self.x_coordinate, self.y_coordinate))
-                #     screen.blit(lineSurf, rect)
                 
                 screen.blit(self.sprite.surface, self.sprite.rect)
 

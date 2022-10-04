@@ -41,6 +41,9 @@ class AircraftSprite(pygame.sprite.Sprite):
 
     def create_text_surface(self):
         """Populates text for sprite"""
+        x_pixel_buffer = 5
+        y_pixel_buffer = 5
+
         font = pygame.font.SysFont('helvetica', stg.ACFT_FONT)
         anti_aliasing = True
         first_line = self.aircraft.name
@@ -49,6 +52,7 @@ class AircraftSprite(pygame.sprite.Sprite):
         self.text_surface = font.render(first_line, anti_aliasing, (255, 255, 255))
         self.text_surface2 = font.render(second_line, anti_aliasing, (255, 255, 255))
         self.text_surface3 = font.render(third_line, anti_aliasing, (255, 255, 255))
+        
 
     # def blitRotateCenter(surf, image, topleft, angle):
     #     rotated_image = pygame.transform.rotate(image, angle)
