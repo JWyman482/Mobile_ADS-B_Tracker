@@ -38,8 +38,6 @@ def run_screen():
     range_slider = pygame_gui.elements.UIHorizontalSlider(relative_rect = pygame.Rect(stg.RANGE_RECT), start_value=stg.RANGE_NM, value_range=(10, 100), manager=manager)
     filter_slider = pygame_gui.elements.UIHorizontalSlider(relative_rect = pygame.Rect(stg.FILTER_RECT), start_value=stg.ALT_FILTER, value_range=(40, 400), manager=manager)
     reset_button = pygame_gui.elements.UIButton(relative_rect= pygame.Rect(stg.RESET_RECT), text = "Reset", manager = manager)
-    
-    draw_my_location(screen)
 
     while is_running:
         time_delta = clock.tick(100)/1000.0
