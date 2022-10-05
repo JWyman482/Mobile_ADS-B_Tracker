@@ -34,7 +34,6 @@ class Aircraft():
         squawk_retrieved = aircraft_dict.get('Squawk')
         alt_retrieved = aircraft_dict.get('Alt')
         track_retrieved = aircraft_dict.get('Track')
-        # print(aircraft_dict.get('Track'))
 
         if name_retrieved:
             self.name = name_retrieved.strip()
@@ -66,7 +65,7 @@ class Aircraft():
                 self.track = float(track_retrieved[0])
             else:
                 self.track = float(track_retrieved)
-            # print(track_retrieved)
+            
 
     def check_aircraft_bounds(self):
         """Determines if the aircraft is within reporting bounds"""
@@ -89,10 +88,6 @@ class Aircraft():
             return f'{pretty_alt}'
         return 'XXX'
 
-    def update_position(self, lat, lng):
-        """Updates the position of the aircraft"""
-        pass
-
     def draw(self, screen):
         
         """Draw the aircraft on the screen"""
@@ -112,7 +107,7 @@ class Aircraft():
                     self.sprite.text_surface2,
                     (self.x_coordinate + x_pixel_buffer, self.y_coordinate + y_pixel_buffer + stg.ACFT_FONT)
                 )
-                screen.blit(
-                    self.sprite.text_surface3,
-                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + y_pixel_buffer + (2*stg.ACFT_FONT))
-                )
+                # screen.blit(
+                #     self.sprite.text_surface3,
+                #     (self.x_coordinate + x_pixel_buffer, self.y_coordinate + y_pixel_buffer + (2*stg.ACFT_FONT))
+                # )

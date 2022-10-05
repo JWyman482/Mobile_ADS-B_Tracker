@@ -12,7 +12,6 @@ def NM_per_pixel():
     return screen_h / (stg.RANGE_NM * 2)
 
 def get_degrees_from_NM(nm, type):
-    #type = "lat" or "lon"
     if type == "lat":
         return nm / stg.NM_PER_DEGREE_LAT
     if type == "lon":
@@ -38,7 +37,6 @@ def get_bounding_box_coordinates():
         'lon_max': lon_max,
         'lon_min': lon_min,
     }
-
 
 def assign_x_y_from_lat_lon(lat, lng):
     # Get base coords and base degrees.
@@ -78,11 +76,7 @@ def assign_x_y_from_lat_lon(lat, lng):
     #TODO Check this -1
     return tgt_x, tgt_y
 
-
 def get_distance(lat, lng):
     base = stg.LAT, stg.LON
     dist = haversine(base, (lat, lng), unit=Unit.NAUTICAL_MILES)
     return dist
-
-
-

@@ -83,20 +83,22 @@ def get_aircraft(HDR_SIZE, TIMEOUT):
             "Count": 0.0,
             "Alt": "9500",
             "Lat": "42.23423",
-            "Lon": "-122.12321"
+            "Lon": "-122.12321",
+            "Track": "245"
+            "Type": "B787"
         },
         "ICAO2": {
             "Callsign": "balls2",
             "Count": 0.0,
             "Alt": "9500",
             "Lat": "42.23423",
-            "Lon": "-122.12321"
+            "Lon": "-122.12321",
+            "Track": "230"
+            "Type": "C208"
         }
     }
     """
-    # print(current_aircraft)
     return current_aircraft
-
 
 def get_aircraft_type(icao_hex):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -119,35 +121,6 @@ def request_from_db(icao, level, path):
             return request_from_db(icao, level + 1, path)
         return "Unk"
     return "Unk"
-
-# def get_lat_lon(HOST):
-#     # Listen on port 2947 (gpsd) of localhost
-#     session = gps.gps(HOST, "2947")
-#     session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
-#     lat = None
-#     lon = None
-
-#     while lat == None and lon == None:
-#         try:
-#             report = session.next()
-#             # Wait for a 'TPV' report and display the current time
-#             # To see all report data, uncomment the line below
-#             # print(report)
-#             if report['class'] == 'TPV':
-#                 if hasattr(report, 'lat') and hasattr(report, 'lon'):
-#                     print(str(report.lat) + " " + str(report.lon))
-#                     lat = round(report.lat, 4)
-#                     lon = round(report.lon, 4)
-#                     print(str(lat) + " " + str(lon))
-#                     session = None
-#                     return lat, lon
-#         except KeyError:
-#             pass
-#         except KeyboardInterrupt:
-#             quit()
-#         except StopIteration:
-#             session = None
-#             print("GPSD has terminated")
 
 def get_lat_lon():
     gpsd = gps(mode=WATCH_ENABLE|WATCH_NEWSTYLE)

@@ -28,7 +28,8 @@ def run_screen():
     if not DEBUG:
         decoder.connectToServer(stg.HOST, stg.PORT)
     
-    """Runs the screen"""
+    aircraftObjs = {}
+
     screen = get_screen()
     manager = pygame_gui.UIManager(stg.SCREENSIZE)
     clock = pygame.time.Clock()
@@ -63,15 +64,12 @@ def run_screen():
             
             if event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
                 if event.ui_element == rr_slider:
-                    # print(rr_slider.get_current_value())
                     stg.RR_DIST = rr_slider.get_current_value()
                 
                 if event.ui_element == range_slider:
-                    # print(range_slider.get_current_value())
                     stg.RANGE_NM = range_slider.get_current_value()
                 
                 if event.ui_element == filter_slider:
-                    # print(filter_slider.get_current_value())
                     stg.ALT_FILTER = filter_slider.get_current_value()
                 
             
@@ -81,7 +79,6 @@ def run_screen():
                     stg.RANGE_NM = stg.DEF_RANGE_NM
                     stg.ALT_FILTER = stg.DEF_ALT_FILTER
                 
-
             manager.process_events(event)
         
         screen.fill((0, 0, 0))

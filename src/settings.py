@@ -6,9 +6,9 @@ def setLatLon(LAT, LON):
     return distLat, distLon
 
 """ Network Settings """
-HOST = "127.0.0.1" # Local
+# HOST = "127.0.0.1" # Local
 # HOST = "192.168.1.41" # 258ATCS
-# HOST = "192.168.1.37" # Radar1
+HOST = "192.168.1.37" # Radar1
 PORT = 30003
 HDR_SIZE = 4096
 
@@ -39,8 +39,6 @@ BAR_X = 0
 BAR_Y = BASE_FONT + Y_PAD
 RR_XY = (BAR_WIDTH + X_PAD, BAR_Y)
 RANGE_XY = (BAR_WIDTH + X_PAD, BAR_Y * 2)
-# FILT_X = 0
-# FILT_Y = (BASE_FONT + Y_PAD) * 3
 FILT_XY = (BAR_WIDTH + X_PAD, BAR_Y * 3)
 RR_RECT = (BAR_X, BAR_Y, BAR_WIDTH, BAR_HEIGHT)
 RANGE_RECT = (BAR_X, BAR_Y * 2, BAR_WIDTH, BAR_HEIGHT)
