@@ -122,15 +122,16 @@ def request_from_db(icao, level, path):
         return "Unk"
     return "Unk"
 
-def get_lat_lon():
-    gpsd = gps(mode=WATCH_ENABLE|WATCH_NEWSTYLE)
+# def get_lat_lon():
+#     gpsd = gps(mode=WATCH_ENABLE|WATCH_NEWSTYLE)
     
-    nx = gpsd.next()
-    while nx['class'] != 'TPV':
-        nx = gpsd.next()
+#     nx = gpsd.next()
+#     while nx['class'] != 'TPV':
+#         nx = gpsd.next()
     
-    if nx['class'] == 'TPV':
-        lattitude = getattr(nx, 'lat', "Unknown")
-        longitude = getattr(nx, 'lon', "Unknown")
-        return lattitude, longitude
-    return 0, 0
+#     if nx['class'] == 'TPV':
+#         lattitude = getattr(nx, 'lat', "Unknown")
+#         longitude = getattr(nx, 'lon', "Unknown")
+#         return lattitude, longitude
+#     return 0, 0
+

@@ -27,7 +27,6 @@ Run with: `./dump1090 --net`
 
 ### GPS
 [Follow these directions](https://canadagps.ca/blogs/knowledgebase-by-platform-linux/how-to-connect-an-usb-gps-receiver-with-a-linux-computer)
-
     sudo apt install gpsd
     sudo gpsd -D 5 -N -n /dev/ttyACM0
     sudo apt install gpsd-clients  
@@ -39,3 +38,8 @@ To make gpsd startup automatic update `/etc/default/gpsd` with:
     `DEVICES=""`  
     `GPSD_OPTIONS="/dev/ttyACM0"`  
     `START_DAEMON="true"`  
+
+Or [these](https://pypi.org/project/pyembedded/)
+    
+    pip install pyembedded
+    sudo cat /dev/ttyACM0

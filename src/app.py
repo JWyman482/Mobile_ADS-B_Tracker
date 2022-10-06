@@ -2,6 +2,7 @@ from json import decoder
 import renderer
 import settings
 import decoder
+from pyembedded.gps_module.gps import GPS
 
 def main():
     """Main entrypoint for application"""
@@ -9,7 +10,9 @@ def main():
     choice = input(">")
     if int(choice) == 1:
         # settings.LAT, settings.LON = decoder.get_lat_lon(settings.HOST)
-        tempLat, tempLon = decoder.get_lat_lon()
+        # tempLat, tempLon = decoder.get_lat_lon()
+        gps = GPS(port='/dev/ttyACM0', baud_rate=9600)
+        tempLat, tempLon = gps.get_lat_long()
         print(f"Lat: {tempLat}, Lon: {tempLon}")
         if tempLat != 0:
             settings.LAT, settings.LON = tempLat, tempLon
