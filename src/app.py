@@ -16,7 +16,7 @@ def main():
         print(coords)
         if coords is not None:
             settings.LAT = coords[0]
-            settings.LON = coords[1]
+            settings.LON = coords[1] * -1
 
         # print(f"Lat: {}, Lon: {tempLon}")
         # if tempLat != 0:
