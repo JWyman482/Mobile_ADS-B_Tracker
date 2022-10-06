@@ -14,7 +14,7 @@ def main():
         gps = GPS(port='/dev/ttyACM0', baud_rate=9600)
         coords = gps.get_lat_long()
         print(coords)
-        if type(coords) != NoneType:
+        if type(coords) != None:
             settings.LAT = coords[0]
             settings.LON = coords[1]
 
