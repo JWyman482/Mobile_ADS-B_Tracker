@@ -1,4 +1,4 @@
-from haversine import haversine
+from haversine import haversine, Unit
 
 def setLatLon(LAT, LON):
     distLat = haversine((LAT, LON), (LAT-1, LON), unit=Unit.NAUTICAL_MILES)
