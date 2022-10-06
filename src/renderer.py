@@ -23,10 +23,14 @@ def draw_my_location(screen):
                pygame.draw.circle(screen, (84, 170, 232), (b.x_coordinate, b.y_coordinate), radius, 2)
         b.draw(screen)
 
+def load_font():
+    return pygame.font.SysFont('helvetica', stg.ACFT_FONT)
 
 def run_screen():
     if not DEBUG:
         decoder.connectToServer(stg.HOST, stg.PORT)
+
+    TEXTFONT = load_font()
 
     screen = get_screen()
     manager = pygame_gui.UIManager(stg.SCREENSIZE)
@@ -92,7 +96,7 @@ def run_screen():
         else: aircraftList = {}
 
         for aircraft in aircraftList:
-            a = Aircraft(aircraftList[aircraft])
+            a = Aircraft(aircraftList[aircraft], TEXTFONT)
             a.draw(screen)
         
         manager.draw_ui(screen)

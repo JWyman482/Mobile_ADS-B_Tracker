@@ -7,7 +7,7 @@ import pygame
 class Aircraft():
     """Class for representing an aircraft on-screen"""
 
-    def __init__(self, aircraft_dict):
+    def __init__(self, aircraft_dict, textFont):
         self.normalize_inputs(aircraft_dict)
         if self.should_draw:
             self.dist = helpers.get_distance(self.lat, self.lng)
@@ -15,7 +15,7 @@ class Aircraft():
             x_coordinate, y_coordinate = helpers.assign_x_y_from_lat_lon(self.lat, self.lng)
             self.x_coordinate = x_coordinate
             self.y_coordinate = y_coordinate
-            self.create_sprite()
+            self.create_sprite(textFont)
             self.check_aircraft_bounds()
 
     def normalize_inputs(self, aircraft_dict):
@@ -76,9 +76,9 @@ class Aircraft():
             self.is_in_bounds = False
         self.is_in_bounds = True
 
-    def create_sprite(self):
+    def create_sprite(self, textFont):
         """Create the sprite for the aircraft"""
-        self.sprite = AircraftSprite(self)
+        self.sprite = AircraftSprite(self, textFont)
 
     def get_pretty_altitude(self):
         if self.alt:
@@ -88,7 +88,7 @@ class Aircraft():
             return f'{pretty_alt}'
         return 'XXX'
 
-    def draw(self, screen):
+    def draw(self, screen, font):
         
         """Draw the aircraft on the screen"""
         x_pixel_buffer = 5
@@ -96,7 +96,7 @@ class Aircraft():
 
         if self.should_draw:
             if self.is_in_bounds:
-                
+                self.sprite.surface.fill(0, 0, 0)
                 screen.blit(self.sprite.surface, self.sprite.rect)
 
                 screen.blit(

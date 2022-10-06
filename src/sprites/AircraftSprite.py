@@ -1,10 +1,11 @@
 import pygame
 import settings as stg
+import helpers
 
 class AircraftSprite(pygame.sprite.Sprite):
     """Visual representation of the aircraft"""
 
-    def __init__(self, aircraft_obj):
+    def __init__(self, aircraft_obj, textFont):
         super(AircraftSprite, self).__init__()
         self.aircraft = aircraft_obj
         self.color = (72, 245, 66)
@@ -12,7 +13,7 @@ class AircraftSprite(pygame.sprite.Sprite):
             self.surface = self.create_line_surface()
         else:
             self.surface = self.create_point_surface()
-        self.create_text_surface()
+        self.create_text_surface(textFont)
         self.rect = self.surface.get_rect(center=(aircraft_obj.x_coordinate, self.aircraft.y_coordinate))
         self.aircraftSprite = (self.surface, self.rect)
 
@@ -33,9 +34,9 @@ class AircraftSprite(pygame.sprite.Sprite):
         return pygame.transform.rotate(lineSurf, self.aircraft.track * -1)
         
 
-    def create_text_surface(self):
+    def create_text_surface(self, textFont):
         """Populates text for sprite"""
-        font = pygame.font.SysFont('helvetica', stg.ACFT_FONT)
+        font = textFont
         anti_aliasing = True
         first_line = self.aircraft.name
         second_line = self.aircraft.get_pretty_altitude().zfill(3) + ' ' + str(self.aircraft.type)
