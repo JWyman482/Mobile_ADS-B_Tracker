@@ -1,5 +1,5 @@
-from json import decoder
-from types import NoneType
+# from json import decoder
+# from types import NoneType
 import renderer
 import settings
 import decoder
@@ -14,7 +14,7 @@ def main():
         gps = GPS(port='/dev/ttyACM0', baud_rate=9600)
         coords = gps.get_lat_long()
         print(coords)
-        if type(coords) != None:
+        if coords is not None:
             settings.LAT = coords[0]
             settings.LON = coords[1]
 
