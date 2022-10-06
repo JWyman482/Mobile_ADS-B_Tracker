@@ -1,5 +1,5 @@
 from queue import Empty
-from gps import * 
+# from gps import * 
 import socket
 import os
 import json
