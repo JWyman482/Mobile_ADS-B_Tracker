@@ -96,7 +96,6 @@ class Aircraft():
 
         if self.should_draw:
             if self.is_in_bounds:
-                self.sprite.surface.fill(0, 0, 0)
                 screen.blit(self.sprite.surface, self.sprite.rect)
 
                 screen.blit(
