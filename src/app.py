@@ -1,21 +1,26 @@
 from json import decoder
+from types import NoneType
 import renderer
 import settings
 import decoder
 from pyembedded.gps_module.gps import GPS
 
 def main():
-    """Main entrypoint for application"""
     print(f"1) Try GPS module\n2) Manually enter GPS coords\n3) Use current Coords ({settings.LAT, settings.LON})")
     choice = input(">")
     if int(choice) == 1:
         # settings.LAT, settings.LON = decoder.get_lat_lon(settings.HOST)
         # tempLat, tempLon = decoder.get_lat_lon()
         gps = GPS(port='/dev/ttyACM0', baud_rate=9600)
-        tempLat, tempLon = gps.get_lat_long()
-        print(f"Lat: {tempLat}, Lon: {tempLon}")
-        if tempLat != 0:
-            settings.LAT, settings.LON = tempLat, tempLon
+        coords = gps.get_lat_long()
+        print(coords)
+        if type(coords) != NoneType:
+            settings.LAT = coords[0]
+            settings.LON = coords[1]
+
+        # print(f"Lat: {}, Lon: {tempLon}")
+        # if tempLat != 0:
+        #     settings.LAT, settings.LON = tempLat, tempLon
         
     elif int(choice) == 2:
         latInput = input("Enter your latitude. Example - 46.333221: ")
