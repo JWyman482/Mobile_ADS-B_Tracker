@@ -30,9 +30,9 @@ def run_screen():
     if not DEBUG:
         decoder.connectToServer(stg.HOST, stg.PORT)
 
-    TEXTFONT = load_font()
 
     screen = get_screen()
+    TEXTFONT = load_font()
     manager = pygame_gui.UIManager(stg.SCREENSIZE)
     clock = pygame.time.Clock()
     is_running = True
