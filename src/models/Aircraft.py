@@ -88,7 +88,7 @@ class Aircraft():
             return f'{pretty_alt}'
         return 'XXX'
 
-    def draw(self, screen, font):
+    def draw(self, screen):
         
         """Draw the aircraft on the screen"""
         x_pixel_buffer = 5
