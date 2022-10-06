@@ -14,9 +14,17 @@ def main():
         gps = GPS(port='/dev/ttyACM0', baud_rate=9600)
         coords = gps.get_lat_long()
         print(coords)
-        if coords is not None:
-            settings.LAT = coords[0]
-            settings.LON = coords[1] * -1
+        # if coords is not None:
+        #     settings.LAT = coords[0]
+        #     settings.LON = coords[1] * -1
+        
+        i = 1
+        while coords is None and i < 100000:
+            coords = gps.get_lat_long()
+            i += 1
+        print(coords)
+        settings.LAT = coords[0]
+        settings.LON = coords[1] * -1
 
         # print(f"Lat: {}, Lon: {tempLon}")
         # if tempLat != 0:
