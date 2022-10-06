@@ -1,5 +1,4 @@
-from haversine import haversine, 
-import pygame
+from haversine import haversine
 
 def setLatLon(LAT, LON):
     distLat = haversine((LAT, LON), (LAT-1, LON), unit=Unit.NAUTICAL_MILES)
