@@ -16,12 +16,12 @@ def main():
     if int(choice) == 1:
         gps = GPS(port='/dev/ttyACM0', baud_rate=9600)
         coords = gps.get_lat_long()
-        print(coords)
+        if (coords[0] == "N/A" or coords is None):
+            print("Searching for GPS signal...")
         i = 1
-        while coords is None and i < 100000:
+        while (coords[0] == "N/A" or coords is None) and i < 50:
             coords = gps.get_lat_long()
             i += 1
-        print(coords)
         settings.LAT = deg_to_dec(coords[0])
         settings.LON = deg_to_dec(coords[1]) * -1
         
