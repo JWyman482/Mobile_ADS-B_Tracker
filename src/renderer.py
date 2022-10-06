@@ -27,8 +27,6 @@ def draw_my_location(screen):
 def run_screen():
     if not DEBUG:
         decoder.connectToServer(stg.HOST, stg.PORT)
-    
-    aircraftObjs = {}
 
     screen = get_screen()
     manager = pygame_gui.UIManager(stg.SCREENSIZE)
@@ -56,12 +54,17 @@ def run_screen():
                     stg.RR_DIST = stg.RR_DIST - 1
                 if event.key == pygame.K_RIGHT:
                     stg.RR_DIST = stg.RR_DIST + 1
-                if event.key == pygame.K_f:
-                    stg.ALT_FILTER = stg.ALT_FILTER - 20
-                if event.key == pygame.K_g:
-                    stg.ALT_FILTER = stg.ALT_FILTER + 20
+                if event.key == pygame.K_f: 
+                    if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+                        stg.ALT_FILTER = stg.ALT_FILTER + 20
+                    else: 
+                        stg.ALT_FILTER = stg.ALT_FILTER - 20
+                if event.key == pygame.K_t:
+                    if pygame.key.get_mods() & pygame.KMOD_SHIFT:
+                        stg.ACFT_FONT = stg.ACFT_FONT + 1
+                    else: 
+                        stg.ACFT_FONT = stg.ACFT_FONT - 1
                 
-            
             if event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
                 if event.ui_element == rr_slider:
                     stg.RR_DIST = rr_slider.get_current_value()

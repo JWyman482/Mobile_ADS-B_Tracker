@@ -9,11 +9,11 @@ class BaseStationSprite(pygame.sprite.Sprite):
         super(BaseStationSprite, self).__init__()
         self.rgb = rgb
         self.text = text
-        self.rrdist = "Rings: " + str(stg.RR_DIST) + " NM"
-        self.range = "Range: " + str(stg.RANGE_NM) + " NM"
+        self.rrdist = "Rings (left/right arrow key): " + str(stg.RR_DIST) + " NM"
+        self.range = "Range (up/down arrow key): " + str(stg.RANGE_NM) + " NM"
         self.screen_h, self.screen_w = helpers.get_screen_dimensions()
         self.coords = str(stg.LAT) + " " + str(stg.LON) + ", " + str(self.screen_h) + "x" + str(self.screen_w)
-        self.filter = "Filter: " + str(stg.ALT_FILTER)
+        self.filter = "Filter (f or F): " + str(stg.ALT_FILTER)
         self.rwy = rwy 
         self.create_line_surface()
         self.create_text_surface()

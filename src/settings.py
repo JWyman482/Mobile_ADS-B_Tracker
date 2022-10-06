@@ -6,9 +6,9 @@ def setLatLon(LAT, LON):
     return distLat, distLon
 
 """ Network Settings """
-HOST = "127.0.0.1" # Local
+# HOST = "127.0.0.1" # Local
 # HOST = "192.168.1.41" # 258ATCS
-# HOST = "192.168.1.37" # Radar1
+HOST = "192.168.1.37" # Radar1
 PORT = 30003
 HDR_SIZE = 4096
 
