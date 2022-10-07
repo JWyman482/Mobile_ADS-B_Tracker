@@ -66,8 +66,10 @@ def run_screen():
                 if event.key == pygame.K_t:
                     if pygame.key.get_mods() & pygame.KMOD_SHIFT:
                         stg.ACFT_FONT = stg.ACFT_FONT + 1
+                        TEXTFONT = load_font()
                     else: 
                         stg.ACFT_FONT = stg.ACFT_FONT - 1
+                        TEXTFONT = load_font()
                 
             if event.type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
                 if event.ui_element == rr_slider:
