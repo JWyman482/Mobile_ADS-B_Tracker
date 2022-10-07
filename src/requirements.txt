@@ -1,4 +1,0 @@
-pygame
-ipython
-haversine
-gps

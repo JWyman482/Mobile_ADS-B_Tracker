@@ -1,20 +1,21 @@
 from sprites.AircraftSprite import AircraftSprite
 import helpers
-from settings import setting
+import settings as stg
+import pygame
 
 
 class Aircraft():
     """Class for representing an aircraft on-screen"""
 
-    def __init__(self, aircraft_dict):
+    def __init__(self, aircraft_dict, textFont):
         self.normalize_inputs(aircraft_dict)
         if self.should_draw:
             self.dist = helpers.get_distance(self.lat, self.lng)
-            self.type = aircraft_dict.get('type')
-            self.create_sprite()
+            self.type = aircraft_dict.get('Type')
             x_coordinate, y_coordinate = helpers.assign_x_y_from_lat_lon(self.lat, self.lng)
             self.x_coordinate = x_coordinate
             self.y_coordinate = y_coordinate
+            self.create_sprite(textFont)
             self.check_aircraft_bounds()
 
     def normalize_inputs(self, aircraft_dict):
@@ -27,12 +28,12 @@ class Aircraft():
         self.track = None
         self.should_draw = True
 
-        name_retrieved = aircraft_dict.get('flight')
-        lat_retrieved = aircraft_dict.get('lat')
-        lng_retrieved = aircraft_dict.get('lon')
-        squawk_retrieved = aircraft_dict.get('squawk')
-        alt_retrieved = aircraft_dict.get('alt_baro')
-        track_retrieved = aircraft_dict.get('track')
+        name_retrieved = aircraft_dict.get('Callsign')
+        lat_retrieved = aircraft_dict.get('Lat')
+        lng_retrieved = aircraft_dict.get('Lon')
+        squawk_retrieved = aircraft_dict.get('Squawk')
+        alt_retrieved = aircraft_dict.get('Alt')
+        track_retrieved = aircraft_dict.get('Track')
 
         if name_retrieved:
             self.name = name_retrieved.strip()
@@ -53,15 +54,18 @@ class Aircraft():
             if type(alt_retrieved) == tuple:
                 self.alt = int(alt_retrieved[0])
             else:
-                if alt_retrieved == "ground":
+                if alt_retrieved == "grnd":
                     self.alt = 0
                 else: 
                     self.alt = int(alt_retrieved)
+            if self.alt / 100 > stg.ALT_FILTER:
+                self.should_draw = False
         if track_retrieved:
             if type(track_retrieved) == tuple:
-                self.track = int(track_retrieved[0])
+                self.track = float(track_retrieved[0])
             else:
-                self.track = int(track_retrieved)
+                self.track = float(track_retrieved)
+            
 
     def check_aircraft_bounds(self):
         """Determines if the aircraft is within reporting bounds"""
@@ -72,9 +76,9 @@ class Aircraft():
             self.is_in_bounds = False
         self.is_in_bounds = True
 
-    def create_sprite(self):
+    def create_sprite(self, textFont):
         """Create the sprite for the aircraft"""
-        self.sprite = AircraftSprite(self)
+        self.sprite = AircraftSprite(self, textFont)
 
     def get_pretty_altitude(self):
         if self.alt:
@@ -84,25 +88,25 @@ class Aircraft():
             return f'{pretty_alt}'
         return 'XXX'
 
-    def update_position(self, lat, lng):
-        """Updates the position of the aircraft"""
-        pass
-
     def draw(self, screen):
+        
         """Draw the aircraft on the screen"""
-        x_pixel_buffer = 10
+        x_pixel_buffer = 5
+        y_pixel_buffer = 5
+
         if self.should_draw:
             if self.is_in_bounds:
-                screen.blit(self.sprite.point_surface, (self.x_coordinate, self.y_coordinate))
+                screen.blit(self.sprite.surface, self.sprite.rect)
+
                 screen.blit(
                     self.sprite.text_surface,
-                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate)
+                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + y_pixel_buffer)
                 )
                 screen.blit(
                     self.sprite.text_surface2,
-                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + setting["ACFT_FONT"])
+                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + y_pixel_buffer + stg.ACFT_FONT)
                 )
-                screen.blit(
-                    self.sprite.text_surface3,
-                    (self.x_coordinate + x_pixel_buffer, self.y_coordinate + (2*setting["ACFT_FONT"]))
-                )
+                # screen.blit(
+                #     self.sprite.text_surface3,
+                #     (self.x_coordinate + x_pixel_buffer, self.y_coordinate + y_pixel_buffer + (2*stg.ACFT_FONT))
+                # )

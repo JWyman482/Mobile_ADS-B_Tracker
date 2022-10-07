@@ -1,16 +1,39 @@
 import renderer
-from settings import setting
+import settings
+from pyembedded.gps_module.gps import GPS
+
+def deg_to_dec(coord):
+    # For example, for a DMS lat of 47.4791819
+    deg = int(coord)            # deg = 47
+    mins = (coord % deg) * 100  # mins = 47.91819
+    minsDec = mins / 60         # minsDec = .798637
+    result = deg + minsDec      # result = 47.798637
+    return result
 
 def main():
-    """Main entrypoint for application"""
-    choice = input("Defaults (y/n)")
-    if choice.lower() != "y":
-        setting["RANGE_NM"] = int(input("Range: "))
-        setting["RR_DIST"] = int(input("Range Rings: "))
-        setting["ACFT_FONT"] = int(input("Aircraft Font Size: "))
-        setting["BASE_FONT"] = int(input("Base Font Size: "))
-    renderer.run_screen()
+    print(f"1) Try GPS module\n2) Manually enter GPS coords\n3) Use current Coords ({settings.LAT, settings.LON})")
+    choice = input(">")
+    if int(choice) == 1:
+        gps = GPS(port='/dev/ttyACM0', baud_rate=9600)
+        coords = gps.get_lat_long()
+        if (coords[0] == "N/A" or coords is None):
+            print("Searching for GPS signal...")
+        i = 1
+        while (coords[0] == "N/A" or coords is None) and i < 50:
+            coords = gps.get_lat_long()
+            i += 1
+        settings.LAT = deg_to_dec(coords[0])
+        settings.LON = deg_to_dec(coords[1]) * -1
+        
+    elif int(choice) == 2:
+        latInput = input("Enter your latitude. Example - 46.333221: ")
+        lonInput = input("Enter your longitude. Example - -120.2423: ")
+        settings.LAT = float(latInput)
+        settings.LON = float(lonInput)
 
+    settings.NM_PER_DEGREE_LAT, settings.NM_PER_DEGREE_LON = settings.setLatLon(settings.LAT, settings.LON)
+    
+    renderer.run_screen()
 
 if __name__ == '__main__':
     main()

@@ -1,7 +1,0 @@
-{ "now" : 1622490782.6,
-  "messages" : 890,
-  "aircraft" : [
-    {"hex":"a0aba6","flight":"N142RS  ","alt_baro":3800,"alt_geom":3975,"gs":91.6,"track":338.2,"geom_rate":896,"squawk":"1200","emergency":"none","category":"A1","lat":47.809845,"lon":-122.503189,"nic":7,"rc":371,"seen_pos":0.2,"version":2,"nic_baro":0,"nac_p":9,"nac_v":1,"sil":3,"sil_type":"perhour","gva":2,"sda":2,"mlat":[],"tisb":[],"messages":731,"seen":0.2,"rssi":-19.4},
-    {"hex":"ab0299","category":"A1","version":2,"sil_type":"perhour","mlat":[],"tisb":[],"messages":108,"seen":253.3,"rssi":-34.3}
-  ]
-}
